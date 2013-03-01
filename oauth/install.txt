@@ -1,0 +1,6 @@
+This code is meant to be used along with the ebook "Single-User Twitter OAuth Programming" by Adam Green. Installation is very simple. Just copy these files to a web accessible directory on any computer or server that has PHP 5.1.2 or greater installed.This computer should also be running Apache or a comparable web server. All of these files need to be in the same directory. 
+
+Note: *ALL* of these files *MUST* be copied to the same directory. Failure to do this will result in missing files and errors when running this code. 
+
+The most recent copy of this source code and the matching ebook can be found at:
+http://140dev.com/member
