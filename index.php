@@ -22,8 +22,8 @@ $attachments = $Parser->getAttachments();
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>mail2tweet</title>
-	<meta name="description" content="mail2tweet">
+	<title>MailHawk</title>
+	<meta name="description" content="MailHawk">
 	<meta name="author" content="mimo">
 	<link rel="stylesheet" href="css/styles.css?v=1.0">
 	<!--[if lt IE 9]>
