@@ -1,10 +1,8 @@
 <?php
-
-require_once('classes/RandID.php');
-
-	
 ini_set('display_errors', 'On');
 error_reporting(E_ALL | E_STRICT);
+
+require_once('classes/RandID.php');
 
 // Redirect to home if no Twitter name
 if (!isset($_POST['twitter_name'])):
@@ -13,23 +11,19 @@ if (!isset($_POST['twitter_name'])):
 	//http_redirect('localhost/mailhawk/index.php');
 endif;
 
+//preg_replace("/[^A-Za-z0-9 ]/", '', $string);
 	
 $db = new mysqli('localhost', 'root', 't3rr0r', 'emails');
-
 	
 if($db->connect_errno > 0):
     die('Unable to connect to database [' . $db->connect_error . ']');
 endif;
-
 	
 $twitter_user = $_POST['twitter_name'];
-
 	
-$id = RandID($db);
+$rand = new RandID($db);
+$id = $rand->getRandID();
 
-
-
-	
 $datetime = new DateTime();
 $datetime->add(new DateInterval('P7D'));
 $expire = $datetime->format('Y-m-d H:i:s');
