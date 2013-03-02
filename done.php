@@ -18,8 +18,10 @@ else:
     die('Invalid Twitter username '. $twitter_user . '!');
   endif;
 endif;
+
+require_once('mysql_login.php');
 	
-$db = new mysqli('localhost', 'root', 't3rr0r', 'emails');
+$db = new mysqli('localhost', $mysql_username, $mysql_password, 'emails');
 if($db->connect_errno > 0):
     die('Unable to connect to database [' . $db->connect_error . ']');
 endif;
