@@ -11,6 +11,9 @@ if (!isset($_POST['twitter_name'])):
 	//http_redirect('localhost/mailhawk/index.php');
 else:
   $twitter_user = $_POST['twitter_name'];
+  if ($twitter_user[0] == '@')
+    $twitter_user = substr($twitter_user, 1);
+  endif;
   if (!validate_twitter_username($twitter_user)):
     die('Invalid Twitter username '. $twitter_user . '!');
   endif;
