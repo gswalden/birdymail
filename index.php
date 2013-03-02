@@ -66,7 +66,7 @@ error_reporting(E_ALL | E_STRICT);
 		<li>Throw-away address</li>
 	</ul>
 	<form method="post" action="done.php">
-		<input type="text" name="twitter_name" autofocus="autofocus" placeholder="Enter Twitter name…">
+		<input type="text" name="twitter_name" autofocus="autofocus" maxlength="16" placeholder="Enter Twitter name…">
 	</form>
 	<script src="js/scripts.js"></script>
 </body>

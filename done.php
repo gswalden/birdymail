@@ -3,23 +3,23 @@ ini_set('display_errors', 'On');
 error_reporting(E_ALL | E_STRICT);
 
 require_once('classes/RandID.php');
+require_once('classes/ValidTwitter.php');
 
-// Redirect to home if no Twitter name
+// Redirect to home if no/invalid Twitter name
 if (!isset($_POST['twitter_name'])):
-	echo 'Redirect';
 	die('No username');
 	//http_redirect('localhost/mailhawk/index.php');
+else:
+  $twitter_user = $_POST['twitter_name'];
+  if (!validate_twitter_username($twitter_user)):
+    die('Invalid Twitter username '. $twitter_user . '!');
+  endif;
 endif;
-
-//preg_replace("/[^A-Za-z0-9 ]/", '', $string);
 	
 $db = new mysqli('localhost', 'root', 't3rr0r', 'emails');
-	
 if($db->connect_errno > 0):
     die('Unable to connect to database [' . $db->connect_error . ']');
 endif;
-	
-$twitter_user = $_POST['twitter_name'];
 	
 $rand = new RandID($db);
 $id = $rand->getRandID();

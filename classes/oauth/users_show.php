@@ -28,5 +28,4 @@ if ($response_code <> 200) {
 
 // Display the response array
 print_r($response_data);
-
 ?>

@@ -25,8 +25,8 @@ class Tweet {
 			));
 		$code = $this->connection->request('GET', $this->connection->url('1.1/help/configuration.json'));
 		if ($code == 200):
-			$response = $this->connection->response['response'];
-			$this->urlLen = intval(substr($response, strpos($response, 'short_url_length') + 24, 2));
+			$response_data = json_decode($this->connection->response['response'],true);
+			$this->urlLen = $response_data['short_url_length'];
 		else:
 			print "Error: $code";
 		endif;
@@ -40,7 +40,7 @@ class Tweet {
 		echo strlen($this->twitterUser);
 		echo strlen(self::ygm);
 		echo $this->urlLen;
-		$charCount = 140 - (1 + strlen($this->twitterUser) + 1 + strlen(self::ygm) + 1 + ($this->urlLen - 1));
+		$charCount = 140 - (1 + strlen($this->twitterUser) + 1 + strlen(self::ygm) + 1 + $this->urlLen);
 		echo $charCount;
 		if (strlen($subject) > $charCount):
 			echo $subject;
