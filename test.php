@@ -1,12 +1,15 @@
 <?php
-  
+ini_set('display_errors', 'On');
+error_reporting(E_ALL | E_STRICT);
+
 // BEGIN MailParser******************************************
 require_once('classes/MimeMailParser.php');
 require_once('classes/Tweet.php');
 
 $path = 'classes/mail.txt';
 $Parser = new MimeMailParser();
-$Parser->setStream(fopen($path));
+//$Parser->setStream(fopen($path));
+$Parser->setPath($path);
 
 $to = $Parser->getHeader('to');
 $from = $Parser->getHeader('from');
@@ -19,11 +22,14 @@ $attachments = $Parser->getAttachments();
 $id = substr($to, 0, strpos($to, '@'));
 
 // BEGIN MySQL******************************************
-$db = new mysqli('localhost', 'root', 'RrhBVKJKjPdmFyN7', 'emails');
+$db = new mysqli('localhost', 'root', 't3rr0r', 'emails');
 
 if($db->connect_errno > 0):
     die('Unable to connect to database [' . $db->connect_error . ']');
 endif;
+
+$text = $db->escape_string($text);
+$html = $db->escape_string($html);
 
 $sql = <<<SQL
 	SELECT twitter_user
@@ -35,11 +41,17 @@ if(!$result = $db->query($sql)):
     die('There was an error running the query [' . $db->error . ']');
 endif;
 
-$twitter_user = $result;
+$row = $result->fetch_assoc();
+$twitter_user = $row['twitter_user'];
+$result->free();
+$datetime = new DateTime();
+$datetime->add(new DateInterval('P1D'));
+$expire = $datetime->format('Y-m-d H:i:s');
 
 $sql = <<<SQL
-    INSERT INTO `active` (from, subject, text, html, expire) 
-    VALUES ($from, $subject, $text, $html, $expire) 
+    UPDATE active
+    SET expire='$expire', subject='$subject', sender='$from', htmlbody='$html', textbody='$text'
+    WHERE id = $id
 SQL;
 
 if(!$result = $db->query($sql)):
