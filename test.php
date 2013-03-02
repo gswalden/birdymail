@@ -1,10 +1,10 @@
-#!/usr/bin/php -q
 <?php
   
 // BEGIN MailParser******************************************
 require_once('classes/MimeMailParser.php');
+require_once('classes/Tweet.php');
 
-$path = 'php://stdin';
+$path = 'classes/mail.txt';
 $Parser = new MimeMailParser();
 $Parser->setStream(fopen($path));
 
@@ -26,6 +26,18 @@ if($db->connect_errno > 0):
 endif;
 
 $sql = <<<SQL
+	SELECT twitter_user
+	FROM active
+	WHERE id = $id 
+SQL;
+
+if(!$result = $db->query($sql)):
+    die('There was an error running the query [' . $db->error . ']');
+endif;
+
+$twitter_user = $result;
+
+$sql = <<<SQL
     INSERT INTO `active` (from, subject, text, html, expire) 
     VALUES ($from, $subject, $text, $html, $expire) 
 SQL;
@@ -34,4 +46,9 @@ if(!$result = $db->query($sql)):
     die('There was an error running the query [' . $db->error . ']');
 endif;
 // END MySQL^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+$tweet = new Tweet();
+$tweet->setUser($twitter_user);
+$tweet->setMessage($subject);
+$tweet->post($id);
 ?>
