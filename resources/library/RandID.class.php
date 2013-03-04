@@ -26,7 +26,7 @@ class RandID
 		}
 
 		if ($stmt->rowCount() > 0):
-		    getRandID();
+		    $this->getRandID();
 		else:
 		    return $id;
 		endif;
