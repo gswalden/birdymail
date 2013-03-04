@@ -12,10 +12,12 @@ $sender = $Parser->getHeader('from');
 $subject = $Parser->getHeader('subject');
 $textbody = $Parser->getMessageBody('text');
 $htmlbody = $Parser->getMessageBody('html');
+$date = new DateTime();
+$date = $date->format('Y-m-d H:i:s');
 //$attachments = $Parser->getAttachments();
-
-$id = substr($to, 1, strpos($to, '@') - 1);
-mail("gswalden@yahoo.com", 'got 4', $id . ' ' . $subject);
+mail("gswalden@yahoo.com", $date, 'message');
+$to = preg_replace("/[^a-zA-Z0-9@]+/", "", $to); // Some e-mail headers have quotes and other chars, some don't.
+$id = substr($to, 0, strpos($to, '@'));
 // END MailParser^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 // BEGIN MySQL******************************************
@@ -31,7 +33,7 @@ try {
     die();
   endif;
 } catch(PDOException $ex) {
-  echo '1An Error occured!' . $ex->getMessage();
+  echo 'An Error occured!' . $ex->getMessage();
   mail('mimo@birdymail.me', 'DB Error', $ex->getMessage());
 }
 
@@ -42,21 +44,22 @@ try {
   $row = $stmt->fetch();
   $twitter_user = $row['twitter_user'];
 } catch(PDOException $ex) {
-	echo '2An Error occured!' . $ex->getMessage();
+	echo 'An Error occured!' . $ex->getMessage();
 	mail('mimo@birdymail.me', 'DB Error', $ex->getMessage());
 }
 
 // Add e-mail to DB
 try {
-    $stmt = $db->prepare('INSERT INTO active(subject, sender, htmlbody, textbody, id) VALUES
-                          :subject, :sender, :htmlbody, :textbody, :id');
+    $stmt = $db->prepare('INSERT INTO active (subject, sender, htmlbody, textbody, id, date) VALUES
+                          (:subject, :sender, :htmlbody, :textbody, :id, :date)');
     $stmt->execute(array(':subject' => $subject, 
                           ':sender' => $sender, 
                         ':htmlbody' => $htmlbody, 
                         ':textbody' => $textbody, 
-                              ':id' => $id));
+                              ':id' => $id,
+                            ':date' => $date));
 } catch(PDOException $ex) {
-    echo '3An Error occured!';
+    echo 'An Error occured!';
     mail('mimo@birdymail.me', 'DB Error', $ex->getMessage());
 }
 // END MySQL^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

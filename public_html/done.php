@@ -8,7 +8,6 @@ require_once('/home/birdymai/resources/library/ValidTwitter.class.php');
 
 // Redirect to home if no/invalid Twitter name
 if (!isset($_POST['twitter_name'])):
-	die('No username');
 	header('Location: http://www.birdymail.me/');
 else:
   $twitter_user = $_POST['twitter_name'];
