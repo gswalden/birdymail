@@ -6,36 +6,31 @@ if (!isset($_GET['id'])):
 	die('No id.');
 else:
 	$id = $_GET['id'];
-	if ($id != preg_replace("/[^A-Za-z0-9]/", '', $id)):
-		die('Invalid id.');
+	if (strcmp($id, preg_replace("/[^A-Za-z0-9]/", '', $id)) != 0):
+		header('Location: http://www.birdymail.me/');
 	endif;
 endif;
 
-require_once('mysql_login.php');
-	
-$db = new mysqli('localhost', $mysql_username, $mysql_password, 'emails');
-if($db->connect_errno > 0):
-    die('Unable to connect to database [' . $db->connect_error . ']');
-endif;
+require_once('/home/birdymai/resources/mysql_login.php');
 
-$sql = <<<SQL
-	SELECT *
-	FROM active
-	WHERE id=$id 
-SQL;
-
-if(!$result = $db->query($sql)):
-    die('There was an error running the query [' . $db->error . ']');
-endif;
-
-$row = $result->fetch_assoc();
+try {
+  $stmt = $db->prepare('SELECT * FROM active WHERE id=:id');
+  $stmt->execute(array(':id' => $id));
+  if ($stmt->rowCount() < 1):
+    header('Location: http://www.birdymail.me/');
+  endif;
+  $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch(PDOException $ex) {
+	echo 'An Error occured!' . $ex->getMessage();
+	mail($errorEMail, 'DB Error', $ex->getMessage());
+}
 
 ?>
 <!doctype html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>MailHawk Viewer</title>
+	<title>BirdyMail Viewer</title>
 	<meta name="description" content="MailHawk Viewer">
 	<meta name="author" content="SitePoint">
 	<link rel="stylesheet" href="css/styles.css?v=1.0">
@@ -44,10 +39,12 @@ $row = $result->fetch_assoc();
 	<![endif]-->
 </head>
 <body>
-	<?php 
-	echo 'Sender: ' . $row['sender'] . "\n";
-	echo 'Subject: ' . $row['subject'] . "\n";
-	echo 'Body: ' . stripslashes($row['html']) . "\n";
+	<?php
+	foreach ($rows as $row): 
+		echo 'Sender: ' . $row['sender'] . "\n";
+		echo 'Subject: ' . $row['subject'] . "\n";
+		echo 'Body: ' . stripslashes($row['htmlbody']) . "\n";
+	endforeach;
 	?>
 	<script src="js/scripts.js"></script>
 </body>

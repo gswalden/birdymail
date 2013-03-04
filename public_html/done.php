@@ -41,7 +41,7 @@ try {
                      ':expire' => $expire));
 } catch(PDOException $ex) {
     echo 'An Error occured!' . $ex->getMessage();
-    mail('mimo@birdymail.me', 'DB Error', $ex->getMessage());
+    mail($errorEMail, 'DB Error', $ex->getMessage());
 }
 ?>
 <!doctype html>

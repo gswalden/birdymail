@@ -15,8 +15,7 @@ $htmlbody = $Parser->getMessageBody('html');
 $date = new DateTime();
 $date = $date->format('Y-m-d H:i:s');
 //$attachments = $Parser->getAttachments();
-mail("gswalden@yahoo.com", $date, 'message');
-$to = preg_replace("/[^a-zA-Z0-9@]+/", "", $to); // Some e-mail headers have quotes and other chars, some don't.
+$to = preg_replace("/[^a-zA-Z0-9@]/", "", $to); // Some e-mail headers have quotes and other chars, some don't.
 $id = substr($to, 0, strpos($to, '@'));
 // END MailParser^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -34,7 +33,7 @@ try {
   endif;
 } catch(PDOException $ex) {
   echo 'An Error occured!' . $ex->getMessage();
-  mail('mimo@birdymail.me', 'DB Error', $ex->getMessage());
+  mail($errorEMail, 'DB Error', $ex->getMessage());
 }
 
 // Fetch Twitter user associated with e-mail account
@@ -45,7 +44,7 @@ try {
   $twitter_user = $row['twitter_user'];
 } catch(PDOException $ex) {
 	echo 'An Error occured!' . $ex->getMessage();
-	mail('mimo@birdymail.me', 'DB Error', $ex->getMessage());
+	mail($errorEMail, 'DB Error', $ex->getMessage());
 }
 
 // Add e-mail to DB
@@ -60,7 +59,7 @@ try {
                             ':date' => $date));
 } catch(PDOException $ex) {
     echo 'An Error occured!';
-    mail('mimo@birdymail.me', 'DB Error', $ex->getMessage());
+    mail($errorEMail, 'DB Error', $ex->getMessage());
 }
 // END MySQL^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

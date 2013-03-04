@@ -22,7 +22,7 @@ class RandID
 		  $stmt->execute(array(':id' => $id));
 		} catch(PDOException $ex) {
 		  echo 'An Error occured!';
-		  mail('mimo@birdymail.me', 'DB Error', $ex->getMessage());
+		  mail($errorEMail, 'DB Error', $ex->getMessage());
 		}
 
 		if ($stmt->rowCount() > 0):
