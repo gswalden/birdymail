@@ -2,8 +2,7 @@
 ini_set('display_errors', 'On');
 error_reporting(E_ALL | E_STRICT);
 
-require_once('classes/RandID.php');
-require_once('classes/ValidTwitter.php');
+require_once('resources/library/ValidTwitter.php');
 
 // Redirect to home if no/invalid Twitter name
 if (!isset($_POST['twitter_name'])):
@@ -11,21 +10,22 @@ if (!isset($_POST['twitter_name'])):
 	//http_redirect('localhost/mailhawk/index.php');
 else:
   $twitter_user = $_POST['twitter_name'];
-  if ($twitter_user[0] == '@')
+  if ($twitter_user[0] == '@') // Check if user entered the '@' symbol in their twiiter username
     $twitter_user = substr($twitter_user, 1);
   endif;
-  if (!validate_twitter_username($twitter_user)):
+  if (!validate_twitter_username($twitter_user)): // pulls data from Twitter API to validate username
     die('Invalid Twitter username '. $twitter_user . '!');
   endif;
 endif;
 
-require_once('mysql_login.php');
+require_once('resources/mysql_login.php');
 	
 $db = new mysqli('localhost', $mysql_username, $mysql_password, 'emails');
 if($db->connect_errno > 0):
     die('Unable to connect to database [' . $db->connect_error . ']');
 endif;
-	
+
+require_once('resources/library/RandID.php');	
 $rand = new RandID($db);
 $id = $rand->getRandID();
 

@@ -1,14 +1,11 @@
+#!/usr/local/bin/php -q
 <?php
-ini_set('display_errors', 'On');
-error_reporting(E_ALL | E_STRICT);
 // BEGIN MailParser******************************************
 require_once('resources/library/MimeMailParser.class.php');
-require_once('resources/library/Tweet.class.php');
 
-$path = 'resources/library/mail.txt';
+$path = 'php://stdin';
 $Parser = new MimeMailParser();
-//$Parser->setStream(fopen($path));
-$Parser->setPath($path);
+$Parser->setStream(fopen($path));
 
 $to = $Parser->getHeader('to');
 $sender = $Parser->getHeader('from');
@@ -16,45 +13,52 @@ $subject = $Parser->getHeader('subject');
 $textbody = $Parser->getMessageBody('text');
 $htmlbody = $Parser->getMessageBody('html');
 $attachments = $Parser->getAttachments();
-// END MailParser^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 $id = substr($to, 0, strpos($to, '@'));
+// END MailParser^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 // BEGIN MySQL******************************************
 require_once('resources/mysql_login.php');
-    
+	
 // Connect to DB
 try {
-    $db = new PDO('mysql:dbname=emails;host=localhost', $mysql_username, $mysql_password);
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	$db = new PDO('mysql:localhost;dbname=emails', $mysql_username, $mysql_password);
+	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch(PDOException $ex) {
-    echo 'An Error occured!' . $ex->getMessage();
-    mail('mimo@birdymail.me', 'DB Error', $ex->getMessage());
+	echo 'An Error occured!';
+	mail('mimo@birdymail.me', 'DB Error', $ex->getMessage());
+}
+
+// Check if id exists
+try {
+  $stmt = $db->prepare('SELECT * FROM active WHERE id=:id');
+  $stmt->execute(array(':id' => $id));
+  if ($stmt->rowCount() < 1):
+    die();
+  endif;
+} catch(PDOException $ex) {
+  echo 'An Error occured!';
+  mail('mimo@birdymail.me', 'DB Error', $ex->getMessage());
 }
 
 // Fetch Twitter user associated with e-mail account
 try {
-    foreach($db->query("SELECT twitter_user FROM active WHERE id = $id") as $row):
-        $twitter_user = $row['twitter_user'];
-    endforeach;
+	foreach($db->query("SELECT twitter_user FROM active WHERE id = $id") as $row):
+	    $twitter_user = $row['twitter_user'];
+	endforeach;
 } catch(PDOException $ex) {
-    echo 'An Error occured!' . $ex->getMessage();
-    mail('mimo@birdymail.me', 'DB Error', $ex->getMessage());
+	echo 'An Error occured!';
+	mail('mimo@birdymail.me', 'DB Error', $ex->getMessage());
 }
 
 // Add e-mail to DB
 try {
-    $sth = $db->prepare('UPDATE active SET subject = :subject, 
+    $stmt = $db->prepare('UPDATE active SET subject = :subject, 
                                       sender = :sender, 
                                     htmlbody = :htmlbody, 
                                     textbody = :textbody 
                                     WHERE id = :id');
-} catch(PDOException $ex) {
-    echo 'An Error occured!';
-    mail('mimo@birdymail.me', 'DB Error', $ex->getMessage());
-}
-try {
-    $sth->execute(array(':subject' => $subject, 
+    $stmt->execute(array(':subject' => $subject, 
                      ':sender' => $sender, 
                    ':htmlbody' => $htmlbody, 
                    ':textbody' => $textbody, 
@@ -65,9 +69,12 @@ try {
 }
 // END MySQL^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+// BEGIN Twitter******************************************
+require_once('resources/library/Tweet.class.php');
+
 $tweet = new Tweet();
 $tweet->setUser($twitter_user);
 $tweet->setMessage($subject);
 $tweet->post($id);
-echo 'Done';
+// END Twitter^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ?>

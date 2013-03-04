@@ -1,7 +1,7 @@
 <?php
 class Tweet {
 
-	const viewerURL = 'http://www.studiomimo.com/mailhawk/viewer.php?id=';
+	const viewerURL = 'http://www.birdymail.me/viewer.php?id=';
 	const ygm = 'You\'ve got mail: ';
 
 	private $twitterUser;
@@ -37,15 +37,9 @@ class Tweet {
 	}
 	public function setMessage($subject)
 	{
-		echo strlen($this->twitterUser);
-		echo strlen(self::ygm);
-		echo $this->urlLen;
 		$charCount = 140 - (1 + strlen($this->twitterUser) + 1 + strlen(self::ygm) + 1 + $this->urlLen);
-		echo $charCount;
 		if (strlen($subject) > $charCount):
-			echo $subject;
 			$subject = substr($subject, 0, $charCount - 3) . '…';
-			echo $subject;
 		endif;
 		$this->twitterMessage = '@' . $this->twitterUser . ' ' . self::ygm . $subject . ' ' . self::viewerURL;
 	}
