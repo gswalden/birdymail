@@ -4,7 +4,7 @@
 ini_set('display_errors', 'On');
 error_reporting(E_ALL | E_STRICT);
 
-require_once('resources/library/ValidTwitter.class.php');
+require_once('/home/birdymai/resources/library/ValidTwitter.class.php');
 
 // Redirect to home if no/invalid Twitter name
 if (!isset($_POST['twitter_name'])):
@@ -21,14 +21,14 @@ else:
 endif;
 
 // Connect to DB
-require_once('resources/mysql_login.php');
+require_once('/home/birdymai/resources/mysql_login.php');
 
 // Create id
-require_once('resources/library/RandID.class.php');	
+require_once('/home/birdymai/resources/library/RandID.class.php');	
 $rand = new RandID($db);
 $id = $rand->getRandID();
 
-// Get current time + seven days
+// Get current time +seven days
 $datetime = new DateTime();
 $created = $datetime->format('Y-m-d H:i:s');
 $datetime->add(new DateInterval('P7D'));

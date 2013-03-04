@@ -1,11 +1,11 @@
 #!/usr/local/bin/php -q
 <?php
 // BEGIN MailParser******************************************
-require_once('resources/library/MimeMailParser.class.php');
+require_once('/home/birdymai/resources/library/MimeMailParser.class.php');
 
 $path = 'php://stdin';
 $Parser = new MimeMailParser();
-$Parser->setStream(fopen($path));
+$Parser->setStream(fopen($path, 'r'));
 
 $to = $Parser->getHeader('to');
 $sender = $Parser->getHeader('from');
@@ -20,7 +20,7 @@ $id = substr($to, 0, strpos($to, '@'));
 // BEGIN MySQL******************************************
 	
 // Connect to DB
-require_once('resources/mysql_login.php');
+require_once('/home/birdymai/resources/mysql_login.php');
 
 // Check if id exists
 try {
@@ -60,7 +60,7 @@ try {
 // END MySQL^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 // BEGIN Twitter******************************************
-require_once('resources/library/Tweet.class.php');
+require_once('/home/birdymai/resources/library/Tweet.class.php');
 
 $tweet = new Tweet();
 $tweet->setUser($twitter_user);

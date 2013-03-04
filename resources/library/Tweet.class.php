@@ -28,7 +28,7 @@ class Tweet {
 			$response_data = json_decode($this->connection->response['response'],true);
 			$this->urlLen = $response_data['short_url_length'];
 		else:
-			print "Error: $code";
+			mail('gswalden@yahoo.com', 'Error in Tweet.class', 'in construct, code: ' . $code);
 		endif;
 	}
 	public function setUser($user)
@@ -45,14 +45,11 @@ class Tweet {
 	}
 	public function post($id)
 	{
-		echo $this->twitterMessage;
 		$code = $this->connection->request('POST', 
 			$this->connection->url('1.1/statuses/update'), 
 			array('status' => $this->twitterMessage . $id));
-		if ($code == 200):
-			print "Tweet sent";
-		else:
-			print "Error: $code";
+		if ($code != 200):
+			mail('gswalden@yahoo.com', 'Error in Tweet.class', 'in construct, code: ' . $code);
 		endif;
 	}
 }
