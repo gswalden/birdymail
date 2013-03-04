@@ -17,15 +17,15 @@ class RandID
 		      $id .= $characters[mt_rand(0, $max)];
 		endfor;
 		
-		$sql = "SELECT count(*) FROM active WHERE id='$id'";
+		try {
+		  $stmt = $this->db->prepare('SELECT * FROM users WHERE id=:id');
+		  $stmt->execute(array(':id' => $id));
+		} catch(PDOException $ex) {
+		  echo 'An Error occured!';
+		  mail('mimo@birdymail.me', 'DB Error', $ex->getMessage());
+		}
 
-		if(!$result = $this->db->query($sql)):
-	    	die('There was an error running the query [' . $this->db->error . ']');
-		endif;
-		
-		$row = $result->fetch_row();
-		
-		if ($row[0] > 0):
+		if ($stmt->rowCount() > 0):
 		    getRandID();
 		else:
 		    return $id;

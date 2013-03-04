@@ -18,20 +18,13 @@ $id = substr($to, 0, strpos($to, '@'));
 // END MailParser^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 // BEGIN MySQL******************************************
-require_once('resources/mysql_login.php');
 	
 // Connect to DB
-try {
-	$db = new PDO('mysql:localhost;dbname=emails', $mysql_username, $mysql_password);
-	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch(PDOException $ex) {
-	echo 'An Error occured!';
-	mail('mimo@birdymail.me', 'DB Error', $ex->getMessage());
-}
+require_once('resources/mysql_login.php');
 
 // Check if id exists
 try {
-  $stmt = $db->prepare('SELECT * FROM active WHERE id=:id');
+  $stmt = $db->prepare('SELECT * FROM users WHERE id=:id');
   $stmt->execute(array(':id' => $id));
   if ($stmt->rowCount() < 1):
     die();
@@ -43,7 +36,7 @@ try {
 
 // Fetch Twitter user associated with e-mail account
 try {
-	foreach($db->query("SELECT twitter_user FROM active WHERE id = $id") as $row):
+	foreach($db->query("SELECT twitter_user FROM users WHERE id = $id") as $row):
 	    $twitter_user = $row['twitter_user'];
 	endforeach;
 } catch(PDOException $ex) {
@@ -53,16 +46,13 @@ try {
 
 // Add e-mail to DB
 try {
-    $stmt = $db->prepare('UPDATE active SET subject = :subject, 
-                                      sender = :sender, 
-                                    htmlbody = :htmlbody, 
-                                    textbody = :textbody 
-                                    WHERE id = :id');
+    $stmt = $db->prepare('INSERT INTO active(subject, sender, htmlbody, textbody, id) VALUES
+                          :subject, :sender, :htmlbody, :textbody, :id');
     $stmt->execute(array(':subject' => $subject, 
-                     ':sender' => $sender, 
-                   ':htmlbody' => $htmlbody, 
-                   ':textbody' => $textbody, 
-                         ':id' => $id));
+                          ':sender' => $sender, 
+                        ':htmlbody' => $htmlbody, 
+                        ':textbody' => $textbody, 
+                              ':id' => $id));
 } catch(PDOException $ex) {
     echo 'An Error occured!';
     mail('mimo@birdymail.me', 'DB Error', $ex->getMessage());

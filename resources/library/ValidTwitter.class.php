@@ -2,8 +2,8 @@
 
 function validate_twitter_username($username)
 {
-	require_once('app_tokens.php');
-	require_once('tmhOAuth.php');
+	require_once('oauth/app_tokens.php');
+	require_once('oauth/tmhOAuth.php');
 
 	$connection = new tmhOAuth(array(
 	  'consumer_key'    => $consumer_key,
