@@ -12,9 +12,10 @@ $sender = $Parser->getHeader('from');
 $subject = $Parser->getHeader('subject');
 $textbody = $Parser->getMessageBody('text');
 $htmlbody = $Parser->getMessageBody('html');
-$attachments = $Parser->getAttachments();
+//$attachments = $Parser->getAttachments();
 
-$id = substr($to, 0, strpos($to, '@'));
+$id = substr($to, 1, strpos($to, '@') - 1);
+mail("gswalden@yahoo.com", 'got 4', $id . ' ' . $subject);
 // END MailParser^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 // BEGIN MySQL******************************************
@@ -30,17 +31,18 @@ try {
     die();
   endif;
 } catch(PDOException $ex) {
-  echo 'An Error occured!';
+  echo '1An Error occured!' . $ex->getMessage();
   mail('mimo@birdymail.me', 'DB Error', $ex->getMessage());
 }
 
 // Fetch Twitter user associated with e-mail account
 try {
-	foreach($db->query("SELECT twitter_user FROM users WHERE id = $id") as $row):
-	    $twitter_user = $row['twitter_user'];
-	endforeach;
+  $stmt = $db->prepare('SELECT twitter_user FROM users WHERE id=:id');
+  $stmt->execute(array(':id' => $id));
+  $row = $stmt->fetch();
+  $twitter_user = $row['twitter_user'];
 } catch(PDOException $ex) {
-	echo 'An Error occured!';
+	echo '2An Error occured!' . $ex->getMessage();
 	mail('mimo@birdymail.me', 'DB Error', $ex->getMessage());
 }
 
@@ -54,7 +56,7 @@ try {
                         ':textbody' => $textbody, 
                               ':id' => $id));
 } catch(PDOException $ex) {
-    echo 'An Error occured!';
+    echo '3An Error occured!';
     mail('mimo@birdymail.me', 'DB Error', $ex->getMessage());
 }
 // END MySQL^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -67,4 +69,3 @@ $tweet->setUser($twitter_user);
 $tweet->setMessage($subject);
 $tweet->post($id);
 // END Twitter^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-?>

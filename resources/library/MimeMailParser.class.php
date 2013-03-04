@@ -95,7 +95,6 @@ class MimeMailParser {
 		} else {
 			$this->stream = $stream;
 		}
-
 		$this->resource = mailparse_msg_create();
 		// parses the message incrementally low memory usage but slower
 		while(!feof($this->stream)) {
