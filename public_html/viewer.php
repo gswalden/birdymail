@@ -6,7 +6,7 @@ if (!isset($_GET['id'])):
 	die('No id.');
 else:
 	$id = $_GET['id'];
-	if (strcmp($id, preg_replace("/[^A-Za-z0-9]/", '', $id)) != 0):
+	if (strcmp($id, preg_replace("/[^0-9]/", '', $id)) != 0):
 		header('Location: http://www.birdymail.me/');
 	endif;
 endif;

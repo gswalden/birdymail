@@ -36,5 +36,5 @@
 Icon?
 ehthumbs.db
 Thumbs.db
-resources/mysql_login.php
-resources/library/oauth/app_tokens.php
+application/config/mysql_login.php
+application/libraries/app_tokens.php
