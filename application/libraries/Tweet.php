@@ -1,8 +1,8 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 class Tweet {
 
 	const viewerURL = 'http://www.birdymail.me/view/';
-	const ygm = 'You\'ve got mail: ';
+	const ygm = 'Fresh egg: ';
 
 	private $twitterUser;
 	private $twitterMessage;
@@ -11,24 +11,36 @@ class Tweet {
 
 	public function __construct()
 	{
-		// Load the app's OAuth tokens into memory
-		require_once 'app_tokens.php';
+		if (defined('BASEPATH')):
+			$CI =& get_instance(); // sets CI as refernce to framework (in order to use)
 
-		// Load the tmhOAuth library
-		require_once 'TMHOAuth.php';
+			// Load the app's OAuth tokens into memory
+			$CI->config->load('app_tokens');
+
+			// Load the tmhOAuth library
+			$CI->load->library('TMHOAuth');
+
+			$config['consumer_key'] = $CI->config->item('consumer_key');
+			$config['consumer_secret'] = $CI->config->item('consumer_secret');
+			$config['user_token'] = $CI->config->item('user_token');
+			$config['user_secret'] = $CI->config->item('user_secret');
+		else:
+			require_once '/home/birdymai/application/config/app_tokens.php';
+			require_once '/home/birdymai/application/libraries/TMHOAuth.php';
+		endif;
 
 		$this->connection = new TMHOAuth(array(
-			'consumer_key'    => $consumer_key,
-			'consumer_secret' => $consumer_secret,
-			'user_token'      => $user_token,
-			'user_secret'     => $user_secret
+			'consumer_key'    => $config['consumer_key'],
+			'consumer_secret' => $config['consumer_secret'],
+			'user_token'      => $config['user_token'],
+			'user_secret'     => $config['user_secret']
 			));
 		$code = $this->connection->request('GET', $this->connection->url('1.1/help/configuration.json'));
 		if ($code == 200):
 			$response_data = json_decode($this->connection->response['response'],true);
 			$this->urlLen = $response_data['short_url_length'];
 		else:
-			mail('gswalden@yahoo.com', 'Error in Tweet.class', 'in construct, code: ' . $code);
+			mail('mimo@birdymail.me', 'Error in Tweet.class', 'in construct, code: ' . $code);
 		endif;
 	}
 
@@ -63,7 +75,7 @@ class Tweet {
 			$this->connection->url('1.1/statuses/update'), 
 			array('status' => $this->twitterMessage . $id));
 		if ($code != 200):
-			mail('gswalden@yahoo.com', 'Error in Tweet.class', 'in post, code: ' . $code);
+			mail('mimo@birdymail.me', 'Error in Tweet.class', 'in post, code: ' . $code);
 		endif;
 	}
 

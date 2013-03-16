@@ -5,7 +5,7 @@
 	<title>BirdyMail</title>
 	<meta name="description" content="BirdyMail">
 	<meta name="author" content="mimo">
-	<link rel="stylesheet" href="css/styles.css">
+	<link rel="stylesheet" href="http://birdymail.me/css/styles.css">
 	<!--[if lt IE 9]>
 	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->

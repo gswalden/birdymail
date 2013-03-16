@@ -23,7 +23,7 @@ class Create extends CI_Controller {
 			$this->load->helper('url');
 			redirect('/');
 		else:
-			$twitter_user = $this->setUser($twitter_user);
+			$twitter_user = $this->_setUser($twitter_user);
 			if (!$twitter_user):
 				// redirects if Twitter username invalid
 				// ADD ERROR MSG
@@ -32,8 +32,11 @@ class Create extends CI_Controller {
 			endif;	
 		endif;
 
+		// Load model
+		$this->load->model('Creator', '', TRUE);
+
 		// Create id
-		$id = $this->createID();
+		$id = $this->_createID();
 
 		// Get current time + 7 days
 		$datetime = new DateTime();
@@ -49,18 +52,17 @@ class Create extends CI_Controller {
 			   'expire' => $expire
 			);
 
-		$this->load->model('Creator', '', TRUE);
-		$this->Creator->insert_user($data);
+		$this->Creator->insertUser($data);
 		
 		$this->load->view('create', $data);
 	}
-	private function createID()
+	private function _createID()
 	{
 		$this->load->library('RandID');
 		$rand = new RandID();
 		return $rand->getRandID();
 	}
-	private function setUser($user)
+	private function _setUser($user)
 	{
 		$this->load->library('Tweet');
 		$twitter_user = new Tweet();

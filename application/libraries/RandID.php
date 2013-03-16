@@ -19,9 +19,9 @@ class RandID
 		
 		$id = mt_rand(100000, 999999999);
 		
-		$query = $this->CI->db->get_where('users', array(id => $id)); // SELECT * FROM users WHERE id=$id
+		// $query = $this->CI->Creator->getUser($id); // SELECT * FROM users WHERE id=$id
 		
-		if ($query->count_all_results() > 0):
+		if ($this->CI->Creator->isUser($id)):
 		    $this->getRandID();
 		else:
 		    return $id;

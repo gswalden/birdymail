@@ -21,12 +21,13 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->helper('form');
 		$data = array(
-              'name'        => 'twitter_name',
-              'autofocus'   => 'autofocus',
-              'placeholder' => 'Enter Twitter name…',
-              'maxlength'   => '16'
-            );
-		$this->load->view('welcome_message');
+				'data' =>	array(
+				              'name'        => 'twitter_name',
+				              'autofocus'   => 'autofocus',
+				              'placeholder' => 'Enter Twitter name…',
+				              'maxlength'   => '16'
+            ));
+		$this->load->view('welcome_message', $data);
 	}
 }
 

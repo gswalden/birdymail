@@ -1,7 +1,7 @@
 #!/usr/local/bin/php -q
 <?php
 // BEGIN MailParser******************************************
-require_once '/home/birdymai/application/libraries/MimeMailParser.php';
+require_once 'MimeMailParser.php';
 
 $path = 'php://stdin';
 $Parser = new MimeMailParser();
@@ -23,6 +23,13 @@ $id = substr($to, 0, strpos($to, '@'));
 	
 // Connect to DB
 require_once '/home/birdymai/application/config/mysql_login.php';
+try {
+  $db = new PDO("mysql:dbname=$mysql_db;host=localhost", $mysql_username, $mysql_password);
+  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch(PDOException $ex) {
+  echo 'An Error occured!';
+  mail('mimo@birdymail.me', 'DB Error', $ex->getMessage());
+}
 
 // Check if id exists
 try {

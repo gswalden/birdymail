@@ -1,6 +1,6 @@
 <?php
 
-require_once('MimeMailParser_attachment.class.php');
+require_once('MimeMailParser_attachment.php');
 
 /**
  * Fast Mime Mail parser Class using PHP's MailParse Extension
