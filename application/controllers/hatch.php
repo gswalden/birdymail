@@ -1,18 +1,18 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class View extends CI_Controller {
+class Hatch extends CI_Controller {
 
 	public function index($id)
 	{
 		// Load model
-		$this->load->model('Viewer', '', TRUE);
+		$this->load->model('Hatcher', '', TRUE);
 
-		if (!$this->Viewer->isUser($id)):
+		if (!$this->Hatcher->isUser($id)):
 			$this->load->helper('url');
 			redirect('/');
 		endif;
 
-		$data['query'] = $this->Viewer->getEmails($id);
+		$data['query'] = $this->Hatcher->getEmails($id);
 		
 		if ($data['query']->num_rows() < 1):
 			$this->load->helper('url');

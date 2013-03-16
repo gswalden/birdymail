@@ -19,7 +19,7 @@
 	3. Wait for tweets from @BirdyMailMe
 	</div></div>
 	<div id="emailbox">
-	<span id="atsymbol"><?php	echo 'Success!<br />Your e-mail address is<br />' . $id . '@birdymail.me' ?></span></div>
+	<span id="atsymbol"><?php	echo 'Success!<br />Your BirdyMail is<br />' . $id . '@birdymail.me' ?></span></div>
 	<script src="js/scripts.js"></script>
 </body>
 </html>

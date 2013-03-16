@@ -40,7 +40,7 @@
 
 $route['default_controller'] = "welcome";
 $route['404_override'] = '';
-$route['view/(:num)'] = 'view/index/$1';
+$route['hatch/(:num)'] = 'view/index/$1';
 // $route['view/(:any)'] = 'welcome';
 // $route['view'] = 'welcome';
 // $route[':any'] = 'welcome';

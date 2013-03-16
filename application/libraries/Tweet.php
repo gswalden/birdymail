@@ -1,7 +1,7 @@
 <?php
 class Tweet {
 
-	const viewerURL = 'http://www.birdymail.me/view/';
+	const viewerURL = 'http://www.birdymail.me/hatch/';
 	const ygm = 'Fresh egg: ';
 
 	private $twitterUser;
@@ -11,7 +11,7 @@ class Tweet {
 
 	public function __construct()
 	{
-		if (defined('BASEPATH')):
+		if (defined('BASEPATH')): // if running through CI website
 			$CI =& get_instance(); // sets CI as refernce to framework (in order to use)
 
 			// Load the app's OAuth tokens into memory
@@ -24,7 +24,7 @@ class Tweet {
 			$config['consumer_secret'] = $CI->config->item('consumer_secret');
 			$config['user_token'] = $CI->config->item('user_token');
 			$config['user_secret'] = $CI->config->item('user_secret');
-		else:
+		else: // if running through mailparser (parser/mail.php)
 			require_once '/home/birdymai/application/config/app_tokens.php';
 			require_once '/home/birdymai/application/libraries/TMHOAuth.php';
 		endif;

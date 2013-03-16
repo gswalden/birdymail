@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Viewer extends CI_Model {
+class Hatcher extends CI_Model {
 
     function __construct()
     {
