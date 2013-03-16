@@ -11,16 +11,20 @@
 	<![endif]-->
 </head>
 <body>
-	Possible uses:
-	<ul>
-		<li>Sign up for "when it's ready" announcements</li>
-		<li>Mailing lists</li>
-		<li>Throw-away address</li>
-	</ul>
+	<div id="titlebox">
+	BirdyMail <br />
+	<div id="list">1. Submit Twitter name<br />
+	2. Use temporary address<br />
+	3. Wait for tweets from @BirdyMailMe
+	</div></div>
+	<div id="emailbox">
 	<?php 
 	echo form_open('create');
-	echo form_input($data);
+	echo '<span id="atsymbol">@</span>' . form_input($input);
+	echo form_submit($submit, 'Go!');
+	echo form_close();
 	?>
+	</div>
 	<script src="js/scripts.js"></script>
 </body>
 </html>
