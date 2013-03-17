@@ -13,16 +13,18 @@
 </head>
 <body>
 	<div id="emailbox">
+		<div id="mail">
 	<?php
 	$i = 0;
 	foreach ($query->result() as $row): 
 		echo 'Sender: ' . $row->sender . '<br />';
 		echo 'Subject: ' . $row->subject . '<br />';
-		echo 'Body: ' . stripslashes($row->htmlbody) . '<br />';
+		echo 'Body html: ' . stripslashes($row->htmlbody) . '<br />';
+		echo 'Body text: ' . stripslashes($row->textbody) . '<br />';
 		$i++;
 		echo "end email $i<hr />";
 	endforeach;
-	?>
+	?></div>
 	</div>
 	<script src="js/scripts.js"></script>
 </body>

@@ -35,12 +35,30 @@ class Tweet {
 			'user_token'      => $config['user_token'],
 			'user_secret'     => $config['user_secret']
 			));
-		$code = $this->connection->request('GET', $this->connection->url('1.1/help/configuration.json'));
+	}
+
+	public function getMentions()
+	{
+		$code = $this->connection->request(
+			'GET', 
+			$this->connection->url('1.1/statuses/mentions_timeline.json'), 
+			array('count' => 200));
 		if ($code == 200):
-			$response_data = json_decode($this->connection->response['response'],true);
-			$this->urlLen = $response_data['short_url_length'];
+			return json_decode($this->connection->response['response'],true);
 		else:
-			mail('mimo@birdymail.me', 'Error in Tweet.class', 'in construct, code: ' . $code);
+			mail('mimo@birdymail.me', 'Error in Tweet.class', 'in ' . __FUNCTION__ . ', code: ' . $code);
+		endif;
+	}
+	
+	public function getTweet($id) // NOT FINISHED
+	{
+		$code = $this->connection->request('GET', 
+			$this->connection->url('1.1/statuses/show.json'), 
+			array('id' => $id));
+		if ($code == 200):
+			return $response_data = json_decode($this->connection->response['response'],true);
+		else:
+			mail('mimo@birdymail.me', 'Error in Tweet.class', 'in ' . __FUNCTION__ . ', code: ' . $code . 'for id' . $id);
 		endif;
 	}
 
@@ -51,6 +69,7 @@ class Tweet {
 
 	public function setUser($user)
 	{
+		$user = trim($user);
 		if (strcmp($user[0], '@') == 0): // Check if user entered the '@' symbol in their twiiter username
 		    $user = substr($user, 1);
 		endif;
@@ -62,6 +81,13 @@ class Tweet {
 
 	public function setMessage($subject)
 	{
+		$code = $this->connection->request('GET', $this->connection->url('1.1/help/configuration.json'));
+		if ($code == 200):
+			$response_data = json_decode($this->connection->response['response'],true);
+			$this->urlLen = $response_data['short_url_length'];
+		else:
+			mail('mimo@birdymail.me', 'Error in Tweet.class', 'in ' . __FUNCTION__ . ', code: ' . $code);
+		endif;
 		$charCount = 140 - (1 + strlen($this->twitterUser) + 1 + strlen(self::ygm) + 1 + $this->urlLen);
 		if (strlen($subject) > $charCount):
 			$subject = substr($subject, 0, $charCount - 3) . '…';
@@ -75,7 +101,7 @@ class Tweet {
 			$this->connection->url('1.1/statuses/update'), 
 			array('status' => $this->twitterMessage . $id));
 		if ($code != 200):
-			mail('mimo@birdymail.me', 'Error in Tweet.class', 'in post, code: ' . $code);
+			mail('mimo@birdymail.me', 'Error in Tweet.class', 'in ' . __FUNCTION__ . ', code: ' . $code);
 		endif;
 	}
 

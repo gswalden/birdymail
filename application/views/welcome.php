@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>BirdyMail</title>
+	<title>BirdyMail!</title>
 	<meta name="description" content="BirdyMail">
 	<meta name="author" content="mimo">
 	<link rel="stylesheet" href="http://birdymail.me/css/styles.css">
@@ -19,7 +19,7 @@
 	</div></div>
 	<div id="emailbox">
 	<?php 
-	echo form_open('create');
+	echo form_open('layegg');
 	echo '<span id="atsymbol">@</span>' . form_input($input);
 	echo form_submit($submit, 'Go!');
 	echo form_close();

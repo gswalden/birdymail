@@ -19,6 +19,6 @@ class Hatch extends CI_Controller {
 			redirect('/');
 		endif;
 
-		$this->load->view('view', $data);
+		$this->load->view('hatch', $data);
 	}
 }

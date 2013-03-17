@@ -38,9 +38,10 @@
 |
 */
 
-$route['default_controller'] = "welcome";
+$route['default_controller'] = 'welcome';
 $route['404_override'] = '';
-$route['hatch/(:num)'] = 'view/index/$1';
+$route['layegg'] = 'create';
+$route['hatch/(:num)'] = 'hatch/index/$1';
 // $route['view/(:any)'] = 'welcome';
 // $route['view'] = 'welcome';
 // $route[':any'] = 'welcome';

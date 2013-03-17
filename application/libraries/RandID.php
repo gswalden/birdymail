@@ -17,7 +17,7 @@ class RandID
 		      $id .= $characters[mt_rand(0, $max)];
 		endfor;*/
 		
-		$id = mt_rand(100000, 999999999);
+		$id = mt_rand(100000, 999999999); // SQL table set to max 9 length
 		
 		// $query = $this->CI->Creator->getUser($id); // SELECT * FROM users WHERE id=$id
 		

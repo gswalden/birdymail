@@ -12,6 +12,12 @@ $sender = $Parser->getHeader('from');
 $subject = $Parser->getHeader('subject');
 $textbody = $Parser->getMessageBody('text');
 $htmlbody = $Parser->getMessageBody('html');
+// HTML Purifier
+require_once '/home/birdymai/htmlpurifier/library/HTMLPurifier.auto.php';
+$config = HTMLPurifier_Config::createDefault();
+$purifier = new HTMLPurifier($config);
+$htmlbody = $purifier->purify($htmlbody);
+
 $date = new DateTime();
 $date = $date->format('Y-m-d H:i:s');
 //$attachments = $Parser->getAttachments();

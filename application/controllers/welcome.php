@@ -30,7 +30,7 @@ class Welcome extends CI_Controller {
 				              'name'        => 'submit',
 				              'id'			=> 'submitbutton'
             ));
-		$this->load->view('welcome_message', $data);
+		$this->load->view('welcome', $data);
 	}
 }
 

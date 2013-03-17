@@ -39,3 +39,4 @@ Thumbs.db
 application/config/mysql_login.php
 application/config/app_tokens.php
 public_html/img
+htmlpurifier
