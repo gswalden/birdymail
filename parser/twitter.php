@@ -6,7 +6,7 @@ try {
   $db = new PDO("mysql:dbname=$mysql_db;host=localhost", $mysql_username, $mysql_password);
   $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch(PDOException $ex) {
-  mail('mimo@birdymail.me', 'DB Error', $ex->getMessage());
+  mail('mimo@birdymail.me', 'DB Error in twitter', $ex->getMessage());
 }
 
 // Get latest 'stop' request
@@ -16,7 +16,7 @@ try {
   $row = $stmt->fetch();
   $id = $row['max'];
 } catch(PDOException $ex) {
-	mail('mimo@birdymail.me', 'DB Error', $ex->getMessage());
+	mail('mimo@birdymail.me', 'DB Error in twitter', $ex->getMessage());
 }
 
 require_once '/home/birdymai/application/libraries/Tweet.php';
@@ -35,13 +35,13 @@ foreach ($mentions as $mention):
 		                       ':name' => $mention['user']['screen_name'], 
 		                       ':text' => $mention['text']));
 		} catch(PDOException $ex) {
-		    mail('mimo@birdymail.me', 'DB Error', $ex->getMessage());
+		    mail('mimo@birdymail.me', 'DB Error in twitter', $ex->getMessage());
 		}
 		try {
 		  $stmt = $db->prepare('DELETE FROM users WHERE twitter_user = :user');
 		  $stmt->execute(array(':user' => $mention['user']['screen_name']));
 		} catch(PDOException $ex) {
-			mail('mimo@birdymail.me', 'DB Error', $ex->getMessage());
+			mail('mimo@birdymail.me', 'DB Error in twitter', $ex->getMessage());
 		}
 		$tweet->sendStopMessage($mention['user']['screen_name'], $mention['id']);
 	endif;
@@ -53,5 +53,5 @@ endforeach;
                        ':name' => $mentions[0]['user']['screen_name'], 
                        ':text' => $mentions[0]['text']));
 } catch(PDOException $ex) {
-    mail('mimo@birdymail.me', 'DB Error', $ex->getMessage());
+    mail('mimo@birdymail.me', 'DB Error in twitter', $ex->getMessage());
 }*/

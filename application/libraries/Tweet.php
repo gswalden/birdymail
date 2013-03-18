@@ -27,6 +27,22 @@ class Tweet {
 		else: // if running through mailparser (parser/mail.php)
 			require_once '/home/birdymai/application/config/app_tokens.php';
 			require_once '/home/birdymai/application/libraries/TMHOAuth.php';
+			// Connect to DB
+			require '/home/birdymai/application/config/mysql_login.php';
+			try {
+			  $db = new PDO("mysql:dbname=$mysql_db;host=localhost", $mysql_username, $mysql_password);
+			  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			} catch(PDOException $ex) {
+			  mail('mimo@birdymail.me', 'DB Error in Tweet', $ex->getMessage());
+			}
+			try {
+			  $stmt = $db->prepare('SELECT value FROM config WHERE name=:url_length');
+			  $stmt->execute(array(':url_length' => 'url_length'));
+			  $row = $stmt->fetch();
+			  $this->urlLen = $row[0];
+			} catch(PDOException $ex) {
+			  mail('mimo@birdymail.me', 'DB Error in Tweet', $ex->getMessage());
+			}
 		endif;
 
 		$this->connection = new TMHOAuth(array(
@@ -82,13 +98,6 @@ class Tweet {
 
 	public function setMessage($subject)
 	{
-		$code = $this->connection->request('GET', $this->connection->url('1.1/help/configuration.json'));
-		if ($code == 200):
-			$response_data = json_decode($this->connection->response['response'],true);
-			$this->urlLen = $response_data['short_url_length'];
-		else:
-			mail('mimo@birdymail.me', 'Error in Tweet.class', 'in ' . __FUNCTION__ . ', code: ' . $code);
-		endif;
 		$charCount = 140 - (1 + strlen($this->twitterUser) + 1 + strlen(self::ygm) + 1 + $this->urlLen);
 		if (strlen($subject) > $charCount):
 			$subject = substr($subject, 0, $charCount - 3) . '…';
@@ -128,6 +137,18 @@ class Tweet {
 		if ($this->connection->response['code'] == 200):
 			return true;
 		else:
+			return false;
+		endif;
+	}
+
+	public function urlLength()
+	{	// runs twice a day
+		$code = $this->connection->request('GET', $this->connection->url('1.1/help/configuration.json'));
+		if ($code == 200):
+			$response_data = json_decode($this->connection->response['response'],true);
+			return $response_data['short_url_length'];
+		else:
+			mail('mimo@birdymail.me', 'Error in Tweet.class', 'in ' . __FUNCTION__ . ', code: ' . $code);
 			return false;
 		endif;
 	}

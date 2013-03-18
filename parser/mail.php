@@ -33,7 +33,7 @@ try {
   $db = new PDO("mysql:dbname=$mysql_db;host=localhost", $mysql_username, $mysql_password);
   $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch(PDOException $ex) {
-  mail('mimo@birdymail.me', 'DB Error', $ex->getMessage());
+  mail('mimo@birdymail.me', 'DB Error in mail', $ex->getMessage());
 }
 
 // Check if id exists
@@ -44,7 +44,7 @@ try {
     die();
   endif;
 } catch(PDOException $ex) {
-  mail('mimo@birdymail.me', 'DB Error', $ex->getMessage());
+  mail('mimo@birdymail.me', 'DB Error in mail', $ex->getMessage());
 }
 
 // Fetch Twitter user associated with e-mail account
@@ -54,7 +54,7 @@ try {
   $row = $stmt->fetch();
   $twitter_user = $row['twitter_user'];
 } catch(PDOException $ex) {
-	mail('mimo@birdymail.me', 'DB Error', $ex->getMessage());
+	mail('mimo@birdymail.me', 'DB Error in mail', $ex->getMessage());
 }
 
 // Add e-mail to DB
@@ -68,7 +68,7 @@ try {
                               ':id' => $id,
                             ':date' => $date));
 } catch(PDOException $ex) {
-    mail('mimo@birdymail.me', 'DB Error', $ex->getMessage());
+    mail('mimo@birdymail.me', 'DB Error in mail', $ex->getMessage());
 }
 // END MySQL^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

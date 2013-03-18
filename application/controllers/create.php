@@ -38,10 +38,10 @@ class Create extends CI_Controller {
 		// Create id
 		$id = $this->_createID();
 
-		// Get current time + 7 days
+		// Get current time + 21 days
 		$datetime = new DateTime();
 		$created = $datetime->format('Y-m-d H:i:s');
-		$datetime->add(new DateInterval('P7D'));
+		$datetime->add(new DateInterval('P21D'));
 		$expire = $datetime->format('Y-m-d H:i:s');
 		unset($datetime);
 
