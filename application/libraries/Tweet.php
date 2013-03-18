@@ -37,12 +37,13 @@ class Tweet {
 			));
 	}
 
-	public function getMentions()
+	public function getMentions($id=0)
 	{
 		$code = $this->connection->request(
 			'GET', 
 			$this->connection->url('1.1/statuses/mentions_timeline.json'), 
-			array('count' => 200));
+			array('count' => 200,
+			   'since_id' => $id));
 		if ($code == 200):
 			return json_decode($this->connection->response['response'],true);
 		else:
