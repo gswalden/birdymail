@@ -33,7 +33,6 @@ try {
   $db = new PDO("mysql:dbname=$mysql_db;host=localhost", $mysql_username, $mysql_password);
   $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch(PDOException $ex) {
-  echo 'An Error occured!';
   mail('mimo@birdymail.me', 'DB Error', $ex->getMessage());
 }
 
@@ -45,8 +44,7 @@ try {
     die();
   endif;
 } catch(PDOException $ex) {
-  echo 'An Error occured!' . $ex->getMessage();
-  mail($errorEMail, 'DB Error', $ex->getMessage());
+  mail('mimo@birdymail.me', 'DB Error', $ex->getMessage());
 }
 
 // Fetch Twitter user associated with e-mail account
@@ -56,8 +54,7 @@ try {
   $row = $stmt->fetch();
   $twitter_user = $row['twitter_user'];
 } catch(PDOException $ex) {
-	echo 'An Error occured!' . $ex->getMessage();
-	mail($errorEMail, 'DB Error', $ex->getMessage());
+	mail('mimo@birdymail.me', 'DB Error', $ex->getMessage());
 }
 
 // Add e-mail to DB
@@ -71,8 +68,7 @@ try {
                               ':id' => $id,
                             ':date' => $date));
 } catch(PDOException $ex) {
-    echo 'An Error occured!';
-    mail($errorEMail, 'DB Error', $ex->getMessage());
+    mail('mimo@birdymail.me', 'DB Error', $ex->getMessage());
 }
 // END MySQL^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

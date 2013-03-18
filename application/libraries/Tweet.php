@@ -37,7 +37,7 @@ class Tweet {
 			));
 	}
 
-	public function getMentions($id=0)
+	public function getMentions($id)
 	{
 		$code = $this->connection->request(
 			'GET', 
@@ -75,7 +75,7 @@ class Tweet {
 		    $user = substr($user, 1);
 		endif;
 		$this->twitterUser = $user;
-		if (!$this->validateTwitterUsername()):
+		if (!$this->_validateTwitterUsername()):
 			$this->twitterUser = FALSE;
   		endif;
 	}
@@ -96,6 +96,17 @@ class Tweet {
 		$this->twitterMessage = '@' . $this->twitterUser . ' ' . self::ygm . $subject . ' ' . self::viewerURL;
 	}
 
+	public function sendStopMessage($user, $id)
+	{
+		$code = $this->connection->request('POST', 
+			$this->connection->url('1.1/statuses/update'), 
+			array('status' => '@' . $user . ' We cracked your egg(s). Thanks!',
+    				'in_reply_to_status_id' => $id));
+		if ($code != 200):
+			mail('mimo@birdymail.me', 'Error in Tweet.class', 'in ' . __FUNCTION__ . ', code: ' . $code);
+		endif;
+	}
+
 	public function post($id)
 	{
 		$code = $this->connection->request('POST', 
@@ -106,7 +117,7 @@ class Tweet {
 		endif;
 	}
 
-	private function validateTwitterUsername()
+	private function _validateTwitterUsername()
 	{
 		// Get account info
 		$this->connection->request('GET', $this->connection->url('1.1/users/show'), array(
