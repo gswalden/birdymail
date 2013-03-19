@@ -23,7 +23,7 @@
 		<?php 
 		echo form_open('layegg');
 		echo '<span id="atsymbol">@</span>' . form_input($input);
-		echo form_submit($submit, 'Go!');
+		echo form_submit($submit, 'go!');
 		echo form_close();
 		?>
 	</div>

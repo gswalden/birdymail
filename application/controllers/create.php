@@ -23,7 +23,7 @@ class Create extends CI_Controller {
 
 		// Redirects if Twitter username invalid
 		$twitter_user = $this->_setUser($user);
-		$this->_isFalse($twitter_user, '/' . preg_replace('/[^a-zA-Z0-9_]+/', "", $user));
+		$this->_isFalse($twitter_user, $user);
 
 		// Load model
 		$this->load->model('Creator', '', TRUE);
@@ -58,6 +58,8 @@ class Create extends CI_Controller {
 	private function _isFalse($twitter_user, $user=null)
 	{
 		if ($twitter_user === false):
+			if ($user !== null)
+				$user = '/' . $user;
 			$this->load->helper('url');
 			redirect('/badegg' . $user);
 		endif;
