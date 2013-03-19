@@ -9,14 +9,9 @@ class Hatcher extends CI_Model {
 
     function isUser($id)
     {
-        $this->db->from('users');
-        $this->db->where('id', $id);
-        $num_results = $this->db->count_all_results();
-        if ($num_results > 0):
-            return TRUE;
-        else:
-            return FALSE;
-        endif;
+        $this->db->from('users')->where('id', $id);
+        if ($this->db->count_all_results() > 0) return TRUE;
+        return FALSE;
     }    
 
     function getEmails($id)

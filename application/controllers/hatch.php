@@ -7,20 +7,13 @@ class Hatch extends CI_Controller {
 		// Load model
 		$this->load->model('Hatcher', '', TRUE);
 
-		if (!$this->Hatcher->isUser($id)):
-			$this->load->helper('url');
-			redirect('/');
-		endif;
+		// Validate user $id
+		$this->_isFalse($this->Hatcher->isUser($id), $id);
 
 		// Gets all e-mails with $id
 		$data['query'] = $this->Hatcher->getEmails($id);		
 		
-		if ($data['query']->num_rows() < 1):
-			$this->load->helper('url');
-			redirect('/');
-		endif;
-
-		// Gets $id expiration
+		// Gets time from now till $id expiration
 		$expire = $this->Hatcher->getExpire($id);
 		$expire = $expire->result();
 		$expdatetime = new DateTime($expire[0]->expire);
@@ -41,20 +34,17 @@ class Hatch extends CI_Controller {
 	    else:
 	    	$format = 'within the hour';
 	    endif;
-	    /* 
-	    if($interval->i !== 0) { 
-	        $format[] = "%i ".$doPlural($interval->i, "minute"); 
-	    } 
-	    if($interval->s !== 0) { 
-	        if(!count($format)) { 
-	            return "less than a minute ago"; 
-	        } else { 
-	            $format[] = "%s ".$doPlural($interval->s, "second"); 
-	        } 
-	    }*/
 
 	    $data['expire'] = $interval->format($format);
 	
+		// Load template
 		$this->load->view('hatch', $data);
+	}
+	private function _isFalse($stmt, $id)
+	{
+		if ($stmt === false):
+			$this->load->helper('url');
+			redirect("/badegg/$id");
+		endif;
 	}
 }

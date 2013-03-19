@@ -40,8 +40,11 @@
 
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
+$route['badegg/(:any)'] = 'welcome';
+$route['badegg'] = 'welcome';
 $route['layegg'] = 'create';
 $route['hatch/(:num)'] = 'hatch/index/$1';
+$route['hatch'] = 'welcome';
 // $route['view/(:any)'] = 'welcome';
 // $route['view'] = 'welcome';
 // $route[':any'] = 'welcome';

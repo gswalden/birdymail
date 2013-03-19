@@ -10,27 +10,20 @@ class Create extends CI_Controller {
 	 *	- or -  
 	 * 		http://birdmail.me/index.php/create/index
 	 *	- or -
-	 *
+	 *		http://birdmail.me/create
 	 * So any other public methods not prefixed with an underscore will
 	 * map to /index.php/create/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index()
 	{
-		// Redirect to home if no/invalid Twitter name
-		$twitter_user = $this->input->post('twitter_name', TRUE); // Grabs POST data, FALSE if none. Checks for XSS
-		if (!$twitter_user):
-			$this->load->helper('url');
-			redirect('/');
-		else:
-			$twitter_user = $this->_setUser($twitter_user);
-			if (!$twitter_user):
-				// redirects if Twitter username invalid
-				// ADD ERROR MSG
-				$this->load->helper('url');
-				redirect('/');
-			endif;	
-		endif;
+		// Redirect to home if no Twitter name in POST data
+		$user = $this->input->post('twitter_name', TRUE); // Grabs POST data, FALSE if none. Checks for XSS
+		$this->_isFalse($user);
+
+		// Redirects if Twitter username invalid
+		$twitter_user = $this->_setUser($user);
+		$this->_isFalse($twitter_user, '/' . preg_replace('/[^a-zA-Z0-9_]+/', "", $user));
 
 		// Load model
 		$this->load->model('Creator', '', TRUE);
@@ -38,7 +31,7 @@ class Create extends CI_Controller {
 		// Create id
 		$id = $this->_createID();
 
-		// Get current time + 21 days
+		// Get current time & current time + 21 days
 		$datetime = new DateTime();
 		$created = $datetime->format('Y-m-d H:i:s');
 		$datetime->add(new DateInterval('P21D'));
@@ -61,6 +54,13 @@ class Create extends CI_Controller {
 		$this->load->library('RandID');
 		$rand = new RandID();
 		return $rand->getRandID();
+	}
+	private function _isFalse($twitter_user, $user=null)
+	{
+		if ($twitter_user === false):
+			$this->load->helper('url');
+			redirect('/badegg' . $user);
+		endif;
 	}
 	private function _setUser($user)
 	{

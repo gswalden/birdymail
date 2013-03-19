@@ -40,9 +40,7 @@ try {
 try {
   $stmt = $db->prepare('SELECT * FROM users WHERE id=:id');
   $stmt->execute(array(':id' => $id));
-  if ($stmt->rowCount() < 1):
-    die();
-  endif;
+  if ($stmt->rowCount() < 1) die();
 } catch(PDOException $ex) {
   mail('mimo@birdymail.me', 'DB Error in mail', $ex->getMessage());
 }
