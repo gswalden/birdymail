@@ -21,10 +21,8 @@ class RandID
 		
 		// $query = $this->CI->Creator->getUser($id); // SELECT * FROM users WHERE id=$id
 		
-		if ($this->CI->Creator->isUser($id)):
-		    $this->getRandID();
-		else:
-		    return $id;
-		endif;
+		if ($this->CI->Creator->isUser($id)) 
+			$this->getRandID();
+		return $id;
 	}	
 }

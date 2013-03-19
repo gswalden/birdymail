@@ -19,8 +19,9 @@
 	<div id="emailbox">
 		<div id="mail">
 	<?php
-	if ($query->num_rows() < 1) echo 'No e-mails for this egg.';
-	else { 
+	if ($query->num_rows() < 1) 
+		echo 'No e-mails for this egg.';
+	else: 
 		$i = 0;
 		foreach ($query->result() as $row): 
 			echo 'Sender: ' . $row->sender . '<br />';
@@ -30,7 +31,7 @@
 			$i++;
 			echo "end email $i<hr />";
 		endforeach;
-	}
+	endif;
 	?></div>
 	</div>
 	<script src="js/scripts.js"></script>

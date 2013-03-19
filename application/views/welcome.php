@@ -30,8 +30,10 @@
 	<?php if ($this->uri->segment(1) == 'badegg'): ?> 
 	<div id="errorbox">
 		<?php   $seg2 = $this->uri->segment(2);
-			 	if (is_numeric($seg2)) echo "The egg $seg2@birdymail.me has not been laid!";
-				else echo "Invalid Twitter name <a href=\"http://twitter.com/$seg2\">@$seg2</a>." ?>
+			 	if (is_numeric($seg2)) 
+			 		echo "The egg $seg2@birdymail.me has not been laid!";
+				else 
+					echo "Invalid Twitter name <a href=\"http://twitter.com/$seg2\">@$seg2</a>."; ?>
 	</div>
 	<?php endif; ?>
 	<div id="footer">
