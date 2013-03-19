@@ -36,7 +36,7 @@ class Tweet {
 			  mail('mimo@birdymail.me', 'DB Error in Tweet', $ex->getMessage());
 			}
 			try {
-			  $stmt = $db->prepare('SELECT value FROM config WHERE name=:url_length');
+			  $stmt = $db->prepare('SELECT num_value FROM config WHERE name=:url_length');
 			  $stmt->execute(array(':url_length' => 'url_length'));
 			  $row = $stmt->fetch();
 			  $this->urlLen = $row[0];

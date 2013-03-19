@@ -16,24 +16,26 @@
 		<?php echo $this->uri->segment(2); ?>@birdymail.me will expire <?php echo $expire ?>.<br />
 		See <a href="http://twitter.com/BirdyMailMe">@BirdyMailMe</a> to extend or delete.
 	</div>
-	<div id="emailbox">
-		<div id="mail">
-	<?php
-	if ($query->num_rows() < 1) 
-		echo 'No e-mails for this egg.';
-	else: 
-		$i = 0;
-		foreach ($query->result() as $row): 
-			echo 'Sender: ' . $row->sender . '<br />';
-			echo 'Subject: ' . $row->subject . '<br />';
-			echo 'Body html: ' . stripslashes($row->htmlbody) . '<br />';
-			echo 'Body text: ' . stripslashes($row->textbody) . '<br />';
-			$i++;
-			echo "end email $i<hr />";
-		endforeach;
-	endif;
-	?></div>
-	</div>
+		<div id="box">
+			<div class="outer">
+				<div class="inner">
+					<?php
+					if ($query->num_rows() < 1) 
+						echo '<div class="mail">No e-mails for this egg.</div>';
+					else {
+						echo 'Latest e-mail:<br />'; 
+						foreach ($query->result() as $row): 
+							echo '<div class="mail">';
+							echo 'Sender: ' . $row->sender . '<br />';
+							echo 'Subject: ' . $row->subject . '<br />';
+							echo 'Body html: ' . stripslashes($row->htmlbody) . '<br />';
+							//echo 'Body text: ' . stripslashes($row->textbody) . '<br />';
+							echo '</div>';
+						endforeach;
+					} ?>
+				</div>
+			</div>
+		</div>
 	<script src="js/scripts.js"></script>
 </body>
 </html>
