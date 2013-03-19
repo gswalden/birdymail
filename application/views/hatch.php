@@ -12,6 +12,10 @@
   	<![endif]-->
 </head>
 <body>
+	<div id="expirebox">
+		<?php echo $this->uri->segment(2); ?>@birdymail.me will expire <?php echo $expire ?>.<br />
+		See <a href="http://twitter.com/BirdyMailMe">@BirdyMailMe</a> to extend or delete.
+	</div>
 	<div id="emailbox">
 		<div id="mail">
 	<?php

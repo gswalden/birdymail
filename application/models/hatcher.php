@@ -23,4 +23,9 @@ class Hatcher extends CI_Model {
     {
     	return $this->db->get_where('active', array('id' => $id));
     }
+
+    function getExpire($id)
+    {
+        return $this->db->get_where('users', array('id' => $id));
+    }
 }

@@ -15,7 +15,7 @@
 	BirdyMail <br />
 	<div id="list">1. Submit Twitter name<br />
 	2. Use temporary address<br />
-	3. Wait for tweets from @BirdyMailMe
+	3. Wait for tweets from <a href="http://twitter.com/BirdyMailMe">@BirdyMailMe</a>
 	</div></div>
 	<div id="emailbox">
 	<?php 

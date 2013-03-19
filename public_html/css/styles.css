@@ -27,8 +27,8 @@ input[type=text] {
   background-color: rgba(255,255,255,0.5);
   font-family: Cambria, Cochin, Georgia, serif;
   font-size: 32px;
-  color: #fff;
-  -webkit-transition:   background-color .2s ease-in,
+  color:    rgba(53,71,107,1.0);
+/*  -webkit-transition:   background-color .2s ease-in,
                         background-position .2s ease-in,
                         box-shadow .3s ease-in;
 
@@ -46,16 +46,15 @@ input[type=text] {
 
   transition:           background-color .2s ease-in,
                         background-position .2s ease-in,
-                        box-shadow .3s ease-in;          
+                        box-shadow .3s ease-in;*/          
 }
 input[type=text]:focus {
   border-color: #FFF;
   border-color: rgba(53,71,107,0.8);
   /*box-shadow: 0px 0px 25px -2px #333;*/
 }
-#emailbox, #eggbox {
+#emailbox, #eggbox, #expirebox {
   font-size: 32px;
-  margin-top: 100px;
   margin-right: auto;
   margin-left: auto;
   padding: 20px 40px 20px 15px;
@@ -69,9 +68,16 @@ input[type=text]:focus {
 }
 #eggbox {
   width: 450px;
+  margin-top: 100px;
 }
 #emailbox {
   width: 525px;
+  margin-top: 100px;
+}
+#expirebox {
+  width: 500px;
+  font-size: 18px;
+  margin-top: 10px;
 }
 #titlebox {
   width: 620px;
@@ -85,16 +91,16 @@ input[type=text]:focus {
   border-color: solid 10px rgba(0,0,0,0.2); /*Very transparent black*/
 }
 ::-webkit-input-placeholder { /* WebKit browsers */
-    color:    rgba(53,71,107,1.0);
+    color:    rgba(53,71,107,0.7);
 }
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color:    rgba(53,71,107,1.0);
+    color:    rgba(53,71,107,0.7);
 }
 ::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color:    rgba(53,71,107,1.0);
+    color:    rgba(53,71,107,0.7);
 }
 :-ms-input-placeholder { /* Internet Explorer 10+ */
-    color:    rgba(53,71,107,1.0);
+    color:    rgba(53,71,107,0.7);
 }
 #submitbutton {
   height: 63px;
@@ -119,6 +125,7 @@ input[type=text]:focus {
 }
 a {
   color: white;
+  text-decoration: none;
 }
 #d_clip_button {
   background-color: rgba(53,71,107,0.8);

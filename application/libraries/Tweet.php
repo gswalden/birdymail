@@ -116,6 +116,17 @@ class Tweet {
 		endif;
 	}
 
+	public function sendExtendMessage($user, $id)
+	{
+		$code = $this->connection->request('POST', 
+			$this->connection->url('1.1/statuses/update'), 
+			array('status' => '@' . $user . ' Your egg\'s life was extended one week. Thanks!',
+    				'in_reply_to_status_id' => $id));
+		if ($code != 200):
+			mail('mimo@birdymail.me', 'Error in Tweet.class', 'in ' . __FUNCTION__ . ', code: ' . $code);
+		endif;
+	}
+
 	public function post($id)
 	{
 		$code = $this->connection->request('POST', 

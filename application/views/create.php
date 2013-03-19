@@ -15,11 +15,12 @@
 	BirdyMail <br />
 	<div id="list">1. Submit Twitter name<br />
 	2. Use temporary address<br />
-	3. Wait for tweets from @BirdyMailMe
+	3. Wait for tweets from <a href="http://twitter.com/BirdyMailMe">@BirdyMailMe</a>
 	</div></div>
 	<div id="eggbox">
 		<?php	echo 'Weclome to the nest!<br />Your BirdyMail egg is<br /><input type="text" value="' . $id . '@birdymail.me" readonly>' ?>
 		<div id="d_clip_button" data-clipboard-text=<?php echo '"' . $id . '@birdymail.me' . '"' ?> title="click to copy">COPY</div>
+		It will expire in 21 days.
 	</div>
     <script type="text/javascript" src="http://www.birdymail.me/js/ZeroClipboard.js"></script>
     <script language="JavaScript">
