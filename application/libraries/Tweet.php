@@ -27,22 +27,6 @@ class Tweet {
 		else: // if running through mailparser (parser/mail.php)
 			require_once '/home/birdymai/application/config/app_tokens.php';
 			require_once '/home/birdymai/application/libraries/TMHOAuth.php';
-			// Connect to DB
-			require '/home/birdymai/application/config/mysql_login.php';
-			try {
-			  $db = new PDO("mysql:dbname=$mysql_db;host=localhost", $mysql_username, $mysql_password);
-			  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			} catch(PDOException $ex) {
-			  mail('mimo@birdymail.me', 'DB Error in Tweet', $ex->getMessage());
-			}
-			try {
-			  $stmt = $db->prepare('SELECT num_value FROM config WHERE name=:url_length');
-			  $stmt->execute(array(':url_length' => 'url_length'));
-			  $row = $stmt->fetch();
-			  $this->urlLen = $row[0];
-			} catch(PDOException $ex) {
-			  mail('mimo@birdymail.me', 'DB Error in Tweet', $ex->getMessage());
-			}
 		endif;
 
 		$this->connection = new TMHOAuth(array(
@@ -93,6 +77,23 @@ class Tweet {
 
 	public function setMessage($subject)
 	{
+		// Connect to DB
+		require '/home/birdymai/application/config/mysql_login.php';
+		try {
+		  $db = new PDO("mysql:dbname=$mysql_db;host=localhost", $mysql_username, $mysql_password);
+		  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		} catch(PDOException $ex) {
+		  mail('mimo@birdymail.me', 'DB Error in Tweet', $ex->getMessage());
+		}
+		try {
+		  $stmt = $db->prepare('SELECT num_value FROM config WHERE name=:url_length');
+		  $stmt->execute(array(':url_length' => 'url_length'));
+		  $row = $stmt->fetch();
+		  $this->urlLen = $row[0];
+		} catch(PDOException $ex) {
+		  mail('mimo@birdymail.me', 'DB Error in Tweet', $ex->getMessage());
+		}
+		
 		$charCount = 140 - (1 + strlen($this->twitterUser) + 1 + strlen(self::ygm) + 1 + $this->urlLen);
 		if (strlen($subject) > $charCount)	
 			$subject = substr($subject, 0, $charCount - 3) . '…';
