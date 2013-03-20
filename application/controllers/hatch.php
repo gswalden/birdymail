@@ -10,6 +10,9 @@ class Hatch extends CI_Controller {
 		// Validate user $id
 		$this->_isFalse($this->Hatcher->isUser($id), $id);
 
+		// Sets last accessed
+		$this->Hatcher->setAccess($id);
+
 		// Gets all e-mails with $id
 		$data['query'] = $this->Hatcher->getEmails($id);		
 		

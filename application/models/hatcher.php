@@ -24,4 +24,9 @@ class Hatcher extends CI_Model {
     {
         return $this->db->get_where('users', array('id' => $id));
     }
+
+    function setAccess($id)
+    {
+        $this->db->set('last_access', 'NOW()', FALSE)->update('users', null, array('id'=>$id));
+    }
 }
