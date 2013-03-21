@@ -75,6 +75,6 @@ require_once '/home/birdymai/application/libraries/Tweet.php';
 
 $tweet = new Tweet();
 $tweet->setUser($twitter_user);
-$tweet->setMessage($subject);
-$tweet->post($id);
+$tweet->setEggMessage($subject, $id);
+$tweet->post();
 // END Twitter^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

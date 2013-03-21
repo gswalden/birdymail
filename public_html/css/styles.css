@@ -71,9 +71,6 @@ input[type=text]:focus {
   margin-top: 100px;
   padding-right: 20px;
 }
-#emailbox {
-  margin-top: 100px;
-}
 #expirebox {
   width: 500px;
   font-size: 18px;
@@ -167,6 +164,7 @@ div.inner{
 }
 
 #landingemail {
+    margin-top: 100px;
     padding: 20px 15px 20px 15px;
     -moz-border-radius:10px;
     -webkit-border-radius:10px;

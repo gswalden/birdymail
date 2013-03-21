@@ -17,7 +17,7 @@ class Hatcher extends CI_Model {
 
     function getEmails($id)
     {
-    	return $this->db->get_where('active', array('id' => $id));
+    	return $this->db->order_by('date','desc')->get_where('active', array('id' => $id));
     }
 
     function getExpire($id)

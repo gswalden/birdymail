@@ -19,24 +19,22 @@
 			3. Wait for tweets from <a href="http://twitter.com/BirdyMailMe">@BirdyMailMe</a>
 		</div>
 	</div>
-	<div id="emailbox">
-		<div class="outer">
-			<div class="inner">
-				<div id="landingemail">
-					<table>
-						<tr>
-							<td><div id="atsymbol" class="font64">@</div></td>
-							<td>
-								<?php  
-									echo form_open('layegg');
-									echo form_input($input) . ' ';
-									echo form_submit($submit, 'go!');
-									echo form_close();
-								?>
-							</td>
-						</tr>
-					</table>
-				</div>
+	<div class="outer">
+		<div class="inner">
+			<div id="landingemail">
+				<table>
+					<tr>
+						<td><div id="atsymbol" class="font64">@</div></td>
+						<td>
+							<?php  
+								echo form_open('layegg');
+								echo form_input($input) . ' ';
+								echo form_submit($submit, 'go!');
+								echo form_close();
+							?>
+						</td>
+					</tr>
+				</table>
 			</div>
 		</div>
 	</div>

@@ -1,7 +1,7 @@
 <?php
 class Tweet {
 
-	const viewerURL = 'http://www.birdymail.me/hatch/';
+	const viewerURL = 'http://birdymail.me/hatch/';
 	const ygm = 'Fresh egg: ';
 
 	private $twitterUser;
@@ -45,11 +45,11 @@ class Tweet {
 			array('count' => 200,
 			   'since_id' => $id));
 		if ($code == 200)
-			return json_decode($this->connection->response['response'],true);
+			return array_reverse(json_decode($this->connection->response['response'],true)); // Reverses to process mentions in order they were sent, not most recent first
 		mail('mimo@birdymail.me', 'Error in Tweet.class', 'in ' . __FUNCTION__ . ', code: ' . $code);
 	}
 	
-	public function getTweet($id) // NOT FINISHED
+	public function getTweet($id)
 	{
 		$code = $this->connection->request('GET', 
 			$this->connection->url('1.1/statuses/show.json'), 
@@ -75,7 +75,7 @@ class Tweet {
 			$this->twitterUser = FALSE;
 	}
 
-	public function setMessage($subject)
+	public function setEggMessage($subject, $id)
 	{
 		// Connect to DB
 		require '/home/birdymai/application/config/mysql_login.php';
@@ -97,36 +97,50 @@ class Tweet {
 		$charCount = 140 - (1 + strlen($this->twitterUser) + 1 + strlen(self::ygm) + 1 + $this->urlLen);
 		if (strlen($subject) > $charCount)	
 			$subject = substr($subject, 0, $charCount - 3) . '…';
-		$this->twitterMessage = '@' . $this->twitterUser . ' ' . self::ygm . $subject . ' ' . self::viewerURL;
+		$this->twitterMessage = array(
+			'status' => ('@' . $this->twitterUser . ' ' . self::ygm . $subject . ' ' . self::viewerURL . $id));
 	}
 
-	public function sendStopMessage($user, $id)
+	public function setStopMessage($user, $id)
+	{
+		$this->twitterMessage = array(
+			'status' => ('@' . $user . ' We cracked your egg(s). Thanks!'),
+			'in_reply_to_status_id' => $id);
+	}
+
+	public function setExtendMessage($user, $id)
+	{
+		$this->twitterMessage = array(
+			'status' => ('@' . $user . ' Your egg\'s life was extended one week. Thanks!'),
+			'in_reply_to_status_id' => $id);
+	}
+
+	public function setReplyMessage($msg, $id)
+	{
+		$this->twitterMessage = array(
+			'status' => $msg,
+			'in_reply_to_status_id' => $id);
+	}
+
+	public function post()
 	{
 		$code = $this->connection->request('POST', 
 			$this->connection->url('1.1/statuses/update'), 
-			array('status' => '@' . $user . ' We cracked your egg(s). Thanks!',
-    				'in_reply_to_status_id' => $id));
+			$this->twitterMessage);
 		if ($code != 200)
 			mail('mimo@birdymail.me', 'Error in Tweet.class', 'in ' . __FUNCTION__ . ', code: ' . $code);
 	}
 
-	public function sendExtendMessage($user, $id)
-	{
-		$code = $this->connection->request('POST', 
-			$this->connection->url('1.1/statuses/update'), 
-			array('status' => '@' . $user . ' Your egg\'s life was extended one week. Thanks!',
-    				'in_reply_to_status_id' => $id));
-		if ($code != 200)
+	public function urlLength()
+	{	// runs twice a day
+		$code = $this->connection->request('GET', $this->connection->url('1.1/help/configuration.json'));
+		if ($code == 200):
+			$response_data = json_decode($this->connection->response['response'],true);
+			return $response_data['short_url_length'];
+		else:
 			mail('mimo@birdymail.me', 'Error in Tweet.class', 'in ' . __FUNCTION__ . ', code: ' . $code);
-	}
-
-	public function post($id)
-	{
-		$code = $this->connection->request('POST', 
-			$this->connection->url('1.1/statuses/update'), 
-			array('status' => $this->twitterMessage . $id));
-		if ($code != 200)
-			mail('mimo@birdymail.me', 'Error in Tweet.class', 'in ' . __FUNCTION__ . ', code: ' . $code);
+			return false;
+		endif;
 	}
 
 	private function _validateTwitterUsername()
@@ -141,17 +155,5 @@ class Tweet {
 			return true;
 		else
 			return false;
-	}
-
-	public function urlLength()
-	{	// runs twice a day
-		$code = $this->connection->request('GET', $this->connection->url('1.1/help/configuration.json'));
-		if ($code == 200):
-			$response_data = json_decode($this->connection->response['response'],true);
-			return $response_data['short_url_length'];
-		else:
-			mail('mimo@birdymail.me', 'Error in Tweet.class', 'in ' . __FUNCTION__ . ', code: ' . $code);
-			return false;
-		endif;
 	}
 }
