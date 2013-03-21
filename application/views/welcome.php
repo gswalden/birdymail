@@ -12,7 +12,7 @@
 </head>
 <body>
 	<div id="titlebox">
-		BirdyMail <br />
+		<div class="font64">BirdyMail</div><br />
 		<div id="list">
 			1. Submit Twitter name<br />
 			2. Use temporary address<br />
@@ -23,12 +23,19 @@
 		<div class="outer">
 			<div class="inner">
 				<div id="landingemail">
-					<?php  
-					echo form_open('layegg');
-					echo '<span id="atsymbol">@</span>' . form_input($input);
-					echo form_submit($submit, 'go!');
-					echo form_close();
-					?>
+					<table>
+						<tr>
+							<td><div id="atsymbol" class="font64">@</div></td>
+							<td>
+								<?php  
+									echo form_open('layegg');
+									echo form_input($input) . ' ';
+									echo form_submit($submit, 'go!');
+									echo form_close();
+								?>
+							</td>
+						</tr>
+					</table>
 				</div>
 			</div>
 		</div>
