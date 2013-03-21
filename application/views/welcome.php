@@ -20,12 +20,18 @@
 		</div>
 	</div>
 	<div id="emailbox">
-		<?php 
-		echo form_open('layegg');
-		echo '<span id="atsymbol">@</span>' . form_input($input);
-		echo form_submit($submit, 'go!');
-		echo form_close();
-		?>
+		<div class="outer">
+			<div class="inner">
+				<div id="landingemail">
+					<?php  
+					echo form_open('layegg');
+					echo '<span id="atsymbol">@</span>' . form_input($input);
+					echo form_submit($submit, 'go!');
+					echo form_close();
+					?>
+				</div>
+			</div>
+		</div>
 	</div>
 	<?php if ($this->uri->segment(1) == 'badegg'): ?> 
 	<div id="errorbox">

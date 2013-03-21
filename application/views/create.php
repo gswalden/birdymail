@@ -18,8 +18,13 @@
 	3. Wait for tweets from <a href="http://twitter.com/BirdyMailMe">@BirdyMailMe</a>
 	</div></div>
 	<div id="eggbox">
-		<?php	echo 'Weclome to the nest!<br />Your BirdyMail egg is<br /><input type="text" value="' . $id . '@birdymail.me" readonly>' ?>
-		<div id="d_clip_button" data-clipboard-text=<?php echo '"' . $id . '@birdymail.me' . '"' ?> title="click to copy">COPY</div>
+		<?php	echo 'Weclome to the nest!<br />Your BirdyMail egg is<br />' ?>
+		<table>
+			<tr>
+				<td><?php echo '<input type="text" value="' . $id . '@birdymail.me" readonly>' ?></td>
+				<td><div id="d_clip_button" data-clipboard-text=<?php echo '"' . $id . '@birdymail.me' . '"' ?> title="click to copy">COPY</div></td>
+			</tr>
+		</table>
 		It will expire in 21 days.
 	</div>
     <script type="text/javascript" src="http://www.birdymail.me/js/ZeroClipboard.js"></script>
