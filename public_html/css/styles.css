@@ -131,12 +131,13 @@ a {
 }
 #d_clip_button {
   background-color: rgba(53,71,107,0.8);
-  padding: 3px;
+  padding-top: 4px;
   color: #fff;
   font-weight: bold;
   margin-left: 5px;
   cursor: pointer;
   font-size: 20px;
+  border: 0;
 }
 div.outer{
     display:inline-block;

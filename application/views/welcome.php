@@ -16,7 +16,7 @@
 		<div id="list">
 			1. Submit Twitter name<br />
 			2. Use temporary address<br />
-			3. Wait for tweets from <a href="http://twitter.com/BirdyMailMe">@BirdyMailMe</a>
+			3. Get 'new mail' alerts from <a href="http://twitter.com/BirdyMailMe">@BirdyMailMe</a>
 		</div>
 	</div>
 	<div class="outer">

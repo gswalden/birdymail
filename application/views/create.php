@@ -15,7 +15,7 @@
 	<div class="font64">BirdyMail</div><br />
 	<div id="list">1. Submit Twitter name<br />
 	2. Use temporary address<br />
-	3. Wait for tweets from <a href="http://twitter.com/BirdyMailMe">@BirdyMailMe</a>
+	3. Get 'new mail' alerts from <a href="http://twitter.com/BirdyMailMe">@BirdyMailMe</a>
 	</div></div>
 	<div class="outer">
 		<div class="inner">
@@ -24,7 +24,10 @@
 				<table>
 					<tr>
 						<td><?php echo '<input type="text" value="' . $id . '@birdymail.me" readonly>' ?></td>
-						<td><div id="d_clip_button" data-clipboard-text=<?php echo '"' . $id . '@birdymail.me' . '"' ?> title="click to copy egg">COPY</div></td>
+						<td>
+							<input type="button" id="d_clip_button" data-clipboard-text=<?php echo '"' . $id . '@birdymail.me' . '"' ?> 
+								title="click to copy egg" value="COPY" />
+						</td>
 					</tr>
 				</table>
 				It will expire in 21 days.
@@ -35,6 +38,10 @@
     <script language="JavaScript">
     	ZeroClipboard.setDefaults( { moviePath: 'http://www.birdymail.me/js/ZeroClipboard.swf', trustedDomains: 'birdymail.me' } );
       	var clip = new ZeroClipboard( document.getElementById('d_clip_button') );
+      	clip.glue( document.getElementById('d_clip_button') );
+      	clip.on( 'complete', function(client, args) {
+        	document.getElementById("d_clip_button").value="DONE";
+	    } );
     </script>
 </body>
 </html>
