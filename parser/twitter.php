@@ -56,11 +56,11 @@ $mentions = $tweet->getMentions($id);
 function insertMention(&$db, $mention)
 {
 	try {
-	    $stmt = $db->prepare('INSERT INTO mentions (id, name, text) VALUES
-	                          (:id, :name, :text)');
-	    $stmt->execute(array(':id' => $mention['id'], 
-	                       ':name' => $mention['user']['screen_name'], 
-	                       ':text' => $mention['text']));
+	    $db->prepare('INSERT INTO mentions (id, name, text)
+	    						VALUES (:id, :name, :text)')
+	    ->execute(array(':id' => $mention['id'], 
+	    			  ':name' => $mention['user']['screen_name'], 
+	        		  ':text' => $mention['text']));
 	} catch(PDOException $ex) {
 	    mail('mimo@birdymail.me', 'DB Error in twitter (insertMention)', $ex->getMessage());
 	}

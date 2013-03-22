@@ -23,7 +23,6 @@
 					if ($query->num_rows() < 1) 
 						echo '<div class="mail">No e-mails for this egg.</div>';
 					else {
-						echo 'Latest e-mail:<br />'; 
 						foreach ($query->result() as $row): 
 							echo '<div class="mail">';
 							echo 'Sender: ' . $row->sender . '<br />';

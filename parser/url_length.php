@@ -16,9 +16,9 @@ try {
 }
 if ($urlLen !== false):
 	try {
-	    $stmt = $db->prepare('UPDATE config SET num_value=:urlLen, updated=NOW() WHERE name=:url_length');
-	    $stmt->execute(array(':urlLen' => $urlLen,
-	    					 ':url_length' => 'url_length'));
+	    $db->prepare('UPDATE config SET num_value=:urlLen, updated=NOW() WHERE name=:url_length')
+	       ->execute(array(':urlLen' => $urlLen,
+	    			   ':url_length' => 'url_length'));
 	} catch(PDOException $ex) {
 	    mail('mimo@birdymail.me', 'DB Error in url_length', $ex->getMessage());
 	}

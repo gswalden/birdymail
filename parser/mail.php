@@ -57,14 +57,14 @@ try {
 
 // Add e-mail to DB
 try {
-    $stmt = $db->prepare('INSERT INTO active (subject, sender, htmlbody, textbody, id, date) VALUES
-                          (:subject, :sender, :htmlbody, :textbody, :id, :date)');
-    $stmt->execute(array(':subject' => $subject, 
-                          ':sender' => $sender, 
-                        ':htmlbody' => $htmlbody, 
-                        ':textbody' => $textbody, 
-                              ':id' => $id,
-                            ':date' => $date));
+    $db->prepare('INSERT INTO active (subject, sender, htmlbody, textbody, id, date) VALUES
+                          (:subject, :sender, :htmlbody, :textbody, :id, :date)')
+       ->execute(array(':subject' => $subject, 
+                        ':sender' => $sender, 
+                      ':htmlbody' => $htmlbody, 
+                      ':textbody' => $textbody, 
+                            ':id' => $id,
+                          ':date' => $date));
 } catch(PDOException $ex) {
     mail('mimo@birdymail.me', 'DB Error in mail', $ex->getMessage());
 }
