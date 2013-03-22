@@ -27,7 +27,7 @@
 						<td><div id="atsymbol" class="font64">@</div></td>
 						<td>
 							<?php  
-								echo form_open('layegg');
+								echo form_open('lay');
 								echo form_input($input) . ' ';
 								echo form_submit($submit, 'go!');
 								echo form_close();
@@ -38,7 +38,7 @@
 			</div>
 		</div>
 	</div>
-	<?php if ($this->uri->segment(1) == 'badegg'): ?> 
+	<?php if ($this->uri->segment(1) == 'rotten'): ?> 
 	<div id="errorbox">
 		<?php   $seg2 = $this->uri->segment(2);
 			 	if (is_numeric($seg2)) 

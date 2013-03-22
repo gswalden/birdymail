@@ -98,7 +98,7 @@ class Tweet {
 		if (strlen($subject) > $charCount)	
 			$subject = substr($subject, 0, $charCount - 3) . '…';
 		$this->twitterMessage = array(
-			'status' => ('@' . $this->twitterUser . ' ' . self::ygm . $subject . ' ' . self::viewerURL . $id));
+			'status' => ('@' . $this->twitterUser . ' ' . self::ygm . $subject . ' ' . self::viewerURL . $id . '.egg'));
 	}
 
 	public function setStopMessage($user, $id)

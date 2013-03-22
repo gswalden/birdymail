@@ -47,7 +47,7 @@ class Hatch extends CI_Controller {
 	{
 		if ($stmt === false):
 			$this->load->helper('url');
-			redirect("/badegg/$id");
+			redirect("/rotten/$id");
 		endif;
 	}
 }

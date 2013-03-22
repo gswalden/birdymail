@@ -61,7 +61,7 @@ class Create extends CI_Controller {
 			if ($user !== null)
 				$user = '/' . $user;
 			$this->load->helper('url');
-			redirect('/badegg' . $user);
+			redirect('/rotten' . $user);
 		endif;
 	}
 	private function _setUser($user)

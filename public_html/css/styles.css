@@ -8,7 +8,7 @@ body {
   font-size: 64px; 
 }
 #list {
-  font-size: 32px;
+  font-size: 24px;
 }
 #atsymbol {
   margin-right: 5px;
@@ -82,7 +82,7 @@ input[type=text]:focus {
   font-size: 14px;
 }
 #titlebox {
-  width: 620px;
+  width: 530px;
   padding: 15px 40px 20px;
   -moz-border-radius:10px;
   -webkit-border-radius:10px;
@@ -174,4 +174,22 @@ div.inner{
     border: #solid 10px #000; /* fallback for browsers that don't understand rgba */
     background-color: rgba(53,71,107,0.55); /* slighly transparent white */
     border-color: solid 10px rgba(0,0,0,0.2); /*Very transparent black*/
+}
+
+div.link {
+    font-size: 16px; 
+    margin-right: 5px;
+    margin-top: 30px; 
+    padding: 20px 15px 20px 15px;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    border-radius:10px;
+    background: #fff; /* fallback for browsers that don't understand rgba */
+    border: #solid 10px #000; /* fallback for browsers that don't understand rgba */
+    background-color: rgba(53,71,107,0.55); /* slighly transparent white */
+    border-color: solid 10px rgba(0,0,0,0.2); /*Very transparent black*/
+}
+
+.black {
+  color: #000;
 }

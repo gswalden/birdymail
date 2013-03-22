@@ -32,6 +32,9 @@
 				</table>
 				It will expire in 21 days.
 			</div>
+			<div class="link">
+				<?php echo "Hatch this egg at <a href=\"http://birdymail.me/hatch/$id.egg\">birdymail.me/hatch/$id.egg</a>" ?>
+			</div>
 		</div>
 	</div>
     <script type="text/javascript" src="http://www.birdymail.me/js/ZeroClipboard.js"></script>
