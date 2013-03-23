@@ -50,6 +50,5 @@
 	<div id="footer">
 		photo "Top of the Rock" courtesy of <a href="http://interfacelift.com/user/13683/benwall.html">BenWall</a>, via <a href="http://interfacelift.com/wallpaper/details/3204/top_of_the_rock.html">InterfaceLIFT</a>
 	</div>
-	<script src="js/scripts.js"></script>
 </body>
 </html>

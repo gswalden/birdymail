@@ -56,7 +56,8 @@ p {
 <body>
 	<div id="container">
 		<h1><?php echo $heading; ?></h1>
-		<?php echo $message; ?>
+		<?php echo $message; 
+		log_message('error', $message); ?>
 	</div>
 </body>
 </html>
