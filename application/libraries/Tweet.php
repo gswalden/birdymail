@@ -55,7 +55,7 @@ class Tweet {
 			$this->connection->url('1.1/statuses/show.json'), 
 			array('id' => $id));
 		if ($code == 200)
-			return $response_data = json_decode($this->connection->response['response'],true);
+			return json_decode($this->connection->response['response'],true);
 		mail('mimo@birdymail.me', 'Error in Tweet.class', 'in ' . __FUNCTION__ . ', code: ' . $code . 'for id' . $id);
 	}
 
