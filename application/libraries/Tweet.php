@@ -1,8 +1,8 @@
 <?php
 class Tweet {
 
-	const viewerURL = 'http://birdymail.me/hatch/';
-	const ygm = 'Fresh egg: ';
+	const viewerURL = "http://birdymail.me/hatch/";
+	const ygm = "Fresh egg: ";
 
 	private $twitterUser;
 	private $twitterMessage;
@@ -11,52 +11,52 @@ class Tweet {
 
 	public function __construct()
 	{
-		if (defined('BASEPATH')): // if running through CI website
+		if (defined("BASEPATH")): // if running through CI website
 			$CI =& get_instance(); // sets CI as refernce to framework (in order to use)
 
 			// Load the app's OAuth tokens into memory
-			$CI->config->load('app_tokens');
+			$CI->config->load("app_tokens");
 
 			// Load the tmhOAuth library
-			$CI->load->library('TMHOAuth');
+			$CI->load->library("TMHOAuth");
 
-			$config['consumer_key'] = $CI->config->item('consumer_key');
-			$config['consumer_secret'] = $CI->config->item('consumer_secret');
-			$config['user_token'] = $CI->config->item('user_token');
-			$config['user_secret'] = $CI->config->item('user_secret');
+			$config["consumer_key"] = $CI->config->item("consumer_key");
+			$config["consumer_secret"] = $CI->config->item("consumer_secret");
+			$config["user_token"] = $CI->config->item("user_token");
+			$config["user_secret"] = $CI->config->item("user_secret");
 		else: // if running through mailparser (parser/mail.php)
-			require_once '/home/birdymai/application/config/app_tokens.php';
-			require_once '/home/birdymai/application/libraries/TMHOAuth.php';
+			require_once "/home/birdymai/application/config/app_tokens.php";
+			require_once "/home/birdymai/application/libraries/TMHOAuth.php";
 		endif;
 
 		$this->connection = new TMHOAuth(array(
-			'consumer_key'    => $config['consumer_key'],
-			'consumer_secret' => $config['consumer_secret'],
-			'user_token'      => $config['user_token'],
-			'user_secret'     => $config['user_secret']
+			"consumer_key"    => $config["consumer_key"],
+			"consumer_secret" => $config["consumer_secret"],
+			"user_token"      => $config["user_token"],
+			"user_secret"     => $config["user_secret"]
 			));
 	}
 
 	public function getMentions($id)
 	{
 		$code = $this->connection->request(
-			'GET', 
-			$this->connection->url('1.1/statuses/mentions_timeline.json'), 
-			array('count' => 200,
-			   'since_id' => $id));
+			"GET", 
+			$this->connection->url("1.1/statuses/mentions_timeline.json"), 
+			array("count" => 200,
+			   "since_id" => $id));
 		if ($code == 200)
-			return array_reverse(json_decode($this->connection->response['response'],true)); // Reverses to process mentions in order they were sent, not most recent first
-		mail('mimo@birdymail.me', 'Error in Tweet.class', 'in ' . __FUNCTION__ . ', code: ' . $code);
+			return array_reverse(json_decode($this->connection->response["response"],true)); // Reverses to process mentions in order they were sent, not most recent first
+		mail("mimo@birdymail.me", "Error in Tweet.class", "in " . __FUNCTION__ . ", code: " . $code);
 	}
 	
 	public function getTweet($id)
 	{
-		$code = $this->connection->request('GET', 
-			$this->connection->url('1.1/statuses/show.json'), 
-			array('id' => $id));
+		$code = $this->connection->request("GET", 
+			$this->connection->url("1.1/statuses/show.json"), 
+			array("id" => $id));
 		if ($code == 200)
-			return json_decode($this->connection->response['response'],true);
-		mail('mimo@birdymail.me', 'Error in Tweet.class', 'in ' . __FUNCTION__ . ', code: ' . $code . 'for id' . $id);
+			return json_decode($this->connection->response["response"],true);
+		mail("mimo@birdymail.me", "Error in Tweet.class", "in " . __FUNCTION__ . ", code: " . $code . "for id" . $id);
 	}
 
 	public function getUser()
@@ -78,67 +78,67 @@ class Tweet {
 	public function setEggMessage($subject, $id)
 	{
 		// Connect to DB
-		require '/home/birdymai/application/config/mysql_login.php';
+		require "/home/birdymai/application/config/mysql_login.php";
 		try {
 		  $db = new PDO("mysql:dbname=$mysql_db;host=localhost", $mysql_username, $mysql_password);
 		  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		} catch(PDOException $ex) {
-		  mail('mimo@birdymail.me', 'DB Error in Tweet', $ex->getMessage());
+		  mail("mimo@birdymail.me", "DB Error in Tweet", $ex->getMessage());
 		}
 		try {
-		  $stmt = $db->prepare('SELECT num_value FROM config WHERE name=:url_length');
-		  $stmt->execute(array(':url_length' => 'url_length'));
+		  $stmt = $db->prepare("SELECT num_value FROM config WHERE name=:url_length");
+		  $stmt->execute(array(":url_length" => "url_length"));
 		  $row = $stmt->fetch();
 		  $this->urlLen = $row[0];
 		} catch(PDOException $ex) {
-		  mail('mimo@birdymail.me', 'DB Error in Tweet', $ex->getMessage());
+		  mail("mimo@birdymail.me", "DB Error in Tweet", $ex->getMessage());
 		}
 		
 		$charCount = 140 - (1 + strlen($this->twitterUser) + 1 + strlen(self::ygm) + 1 + $this->urlLen);
 		if (strlen($subject) > $charCount)	
-			$subject = substr($subject, 0, $charCount - 3) . '…';
+			$subject = substr($subject, 0, $charCount - 3) . "…";
 		$this->twitterMessage = array(
-			'status' => ('@' . $this->twitterUser . ' ' . self::ygm . $subject . ' ' . self::viewerURL . $id . '.egg'));
+			"status" => ("@" . $this->twitterUser . " " . self::ygm . $subject . " " . self::viewerURL . $id . ".egg"));
 	}
 
 	public function setStopMessage($user, $id)
 	{
 		$this->twitterMessage = array(
-			'status' => ('@' . $user . ' We cracked your egg(s). Thanks!'),
-			'in_reply_to_status_id' => $id);
+			"status" => ("@" . $user . " We cracked your egg(s). Thanks!"),
+			"in_reply_to_status_id" => $id);
 	}
 
 	public function setExtendMessage($user, $id)
 	{
 		$this->twitterMessage = array(
-			'status' => ('@' . $user . ' Your egg\'s life was extended one week. Thanks!'),
-			'in_reply_to_status_id' => $id);
+			"status" => ("@" . $user . " Your egg\"s life was extended one week. Thanks!"),
+			"in_reply_to_status_id" => $id);
 	}
 
 	public function setReplyMessage($msg, $id)
 	{
 		$this->twitterMessage = array(
-			'status' => $msg,
-			'in_reply_to_status_id' => $id);
+			"status" => $msg,
+			"in_reply_to_status_id" => $id);
 	}
 
 	public function post()
 	{
-		$code = $this->connection->request('POST', 
-			$this->connection->url('1.1/statuses/update'), 
+		$code = $this->connection->request("POST", 
+			$this->connection->url("1.1/statuses/update"), 
 			$this->twitterMessage);
 		if ($code != 200)
-			mail('mimo@birdymail.me', 'Error in Tweet.class', 'in ' . __FUNCTION__ . ', code: ' . $code);
+			mail("mimo@birdymail.me", "Error in Tweet.class", "in " . __FUNCTION__ . ", code: " . $code);
 	}
 
 	public function urlLength()
 	{	// runs twice a day
-		$code = $this->connection->request('GET', $this->connection->url('1.1/help/configuration.json'));
+		$code = $this->connection->request("GET", $this->connection->url("1.1/help/configuration.json"));
 		if ($code == 200):
-			$response_data = json_decode($this->connection->response['response'],true);
-			return $response_data['short_url_length'];
+			$response_data = json_decode($this->connection->response["response"],true);
+			return $response_data["short_url_length"];
 		else:
-			mail('mimo@birdymail.me', 'Error in Tweet.class', 'in ' . __FUNCTION__ . ', code: ' . $code);
+			mail("mimo@birdymail.me", "Error in Tweet.class", "in " . __FUNCTION__ . ", code: " . $code);
 			return false;
 		endif;
 	}
@@ -146,12 +146,12 @@ class Tweet {
 	private function _validateTwitterUsername()
 	{
 		// Get account info
-		$this->connection->request('GET', $this->connection->url('1.1/users/show'), array(
-		 		'screen_name' => "$this->twitterUser"
+		$this->connection->request("GET", $this->connection->url("1.1/users/show"), array(
+		 		"screen_name" => "$this->twitterUser"
 			));
 
 		// Get the HTTP response code for the API request
-		if ($this->connection->response['code'] == 200)
+		if ($this->connection->response["code"] == 200)
 			return true;
 		else
 			return false;

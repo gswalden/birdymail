@@ -27,9 +27,9 @@
 						<td><div id="atsymbol" class="font64">@</div></td>
 						<td>
 							<?php  
-								echo form_open('lay');
-								echo form_input($input) . ' ';
-								echo form_submit($submit, 'go!');
+								echo form_open("lay");
+								echo form_input($input) . " ";
+								echo form_submit($submit, "go!");
 								echo form_close();
 							?>
 						</td>

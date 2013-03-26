@@ -25,11 +25,11 @@
 					else {
 						foreach ($query->result() as $row): 
 							echo '<div class="mail">';
-							echo 'Sender: ' . $row->sender . '<br />';
-							echo 'Subject: ' . $row->subject . '<br />';
-							echo 'Body html: ' . stripslashes($row->htmlbody) . '<br />';
-							//echo 'Body text: ' . stripslashes($row->textbody) . '<br />';
-							echo '</div>';
+							echo "Sender: " . $row->sender . "<br />";
+							echo "Subject: " . $row->subject . "<br />";
+							echo "Body html: " . stripslashes($row->htmlbody) . "<br />";
+							//echo "Body text: " . stripslashes($row->textbody) . "<br />";
+							echo "</div>";
 						endforeach;
 					} ?>
 				</div>

@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if ( ! defined("BASEPATH")) exit("No direct script access allowed");
 
 class Welcome extends CI_Controller {
 
@@ -19,18 +19,18 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->helper('form');
+		$this->load->helper("form");
 		$data = array(
-				'input' =>	array(
-				              'name'        => 'twitter_name',
-				              'autofocus'   => 'autofocus',
-				              'placeholder' => 'Enter Twitter name…',
-				              'maxlength'   => '16'),
-				'submit' =>	array(
-				              'name'        => 'submit',
-				              'id'			=> 'submitbutton'
+				"input" =>	array(
+				              "name"        => "twitter_name",
+				              "autofocus"   => "autofocus",
+				              "placeholder" => "Enter Twitter name…",
+				              "maxlength"   => "16"),
+				"submit" =>	array(
+				              "name"        => "submit",
+				              "id"			=> "submitbutton"
             ));
-		$this->load->view('welcome', $data);
+		$this->load->view("welcome", $data);
 	}
 }
 

@@ -20,12 +20,12 @@
 	<div class="outer">
 		<div class="inner">
 			<div id="eggbox">
-				<?php	echo 'Weclome to the nest!<br />Your BirdyMail egg is<br />' ?>
+				<?php	echo "Weclome to the nest!<br />Your BirdyMail egg is<br />" ?>
 				<table>
 					<tr>
 						<td><?php echo '<input type="text" value="' . $id . '@birdymail.me" readonly>' ?></td>
 						<td>
-							<input type="button" id="d_clip_button" data-clipboard-text=<?php echo '"' . $id . '@birdymail.me' . '"' ?> 
+							<input type="button" id="d_clip_button" data-clipboard-text=<?php echo '"' . $id . "@birdymail.me" . '"' ?> 
 								title="click to copy egg" value="COPY" />
 						</td>
 					</tr>
