@@ -40,3 +40,8 @@ application/config/mysql_login.php
 application/config/app_tokens.php
 public_html/img
 htmlpurifier
+*/config/development
+*/logs/log-*.php
+*/logs/!index.html
+*/cache/*
+*/cache/!index.html
