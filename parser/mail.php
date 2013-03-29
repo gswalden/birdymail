@@ -18,7 +18,7 @@ $config = HTMLPurifier_Config::createDefault();
 $purifier = new HTMLPurifier($config);
 $htmlbody = $purifier->purify($htmlbody);
 
-$date = new DateTime();
+$date = new DateTime(null, new DateTimeZone("America/New_York"));
 $date = $date->format('Y-m-d H:i:s');
 //$attachments = $Parser->getAttachments();
 $to = preg_replace("/[^a-zA-Z0-9@]/", "", $to); // Some e-mail headers have quotes and other chars, some don't.
