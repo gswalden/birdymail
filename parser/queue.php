@@ -37,7 +37,7 @@ try {
 				  $db->prepare("DELETE FROM twitter_queue WHERE id=:id")
 				  	 ->execute(array(":id" => $row["id"]));
 				} catch(PDOException $ex) {
-				  mail("mimo@birdymail.me", "DB Error in QUEUE", $ex->getMessage());
+				  mail("mimo@birdymail.me", "DB Error in QUEUE delete", $ex->getMessage());
 				}
 			endif;   
 		endwhile;
