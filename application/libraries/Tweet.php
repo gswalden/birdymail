@@ -77,21 +77,14 @@ class Tweet {
 
 	public function setEggMessage($subject, $id)
 	{
-		// Connect to DB
-		require "/home/birdymai/application/config/mysql_login.php";
-		try {
-		  $db = new PDO("mysql:dbname=$mysql_db;host=localhost", $mysql_username, $mysql_password);
-		  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		} catch(PDOException $ex) {
-		  mail("mimo@birdymail.me", "DB Error in Tweet", $ex->getMessage());
-		}
+		$db = $this->_connect_db();
 		try {
 		  $stmt = $db->prepare("SELECT num_value FROM config WHERE name=:url_length");
 		  $stmt->execute(array(":url_length" => "url_length"));
 		  $row = $stmt->fetch();
 		  $this->urlLen = $row[0];
 		} catch(PDOException $ex) {
-		  mail("mimo@birdymail.me", "DB Error in Tweet", $ex->getMessage());
+		  mail("mimo@birdymail.me", "DB Error in Tweet: " . __FUNCTION__, $ex->getMessage());
 		}
 		
 		$charCount = 140 - (1 + strlen($this->twitterUser) + 1 + strlen(self::ygm) + 1 + $this->urlLen);
@@ -124,6 +117,36 @@ class Tweet {
 
 	public function post()
 	{
+		$db = $this->_connect_db();
+		try {
+		  $stmt = $db->prepare("SELECT num_value FROM config WHERE name=:tweets_today");
+		  $stmt->execute(array(":tweets_today" => "tweets_today"));
+		  $row = $stmt->fetch();
+		} catch(PDOException $ex) {
+		  mail("mimo@birdymail.me", "DB Error in Tweet: " . __FUNCTION__, $ex->getMessage());
+		}
+		date_default_timezone_set("America/New_York");
+		$seconds = time() - strtotime("today");
+		// 1000 tweet/day limit, so 86.4 seconds between Tweets to never hit limit
+		if (($row[0] * 86.4) > $seconds):
+			try {
+			  $stmt = $db->prepare("INSERT INTO twitter_queue (user, message, type) VALUES
+                          			(:user, :message, ::type");
+			  $stmt->execute(array( ":user" => $this->twitterUser,
+			  						":message" => serialize($this->twitterMessage),
+			  						":type" => ""));
+			  $row = $stmt->fetch();
+			} catch(PDOException $ex) {
+			  mail("mimo@birdymail.me", "DB Error in Tweet: " . __FUNCTION__, $ex->getMessage());
+			}
+		else:
+			$code = $this->connection->request("POST", 
+				$this->connection->url("1.1/statuses/update"), 
+				$this->twitterMessage);
+			if ($code != 200)
+				mail("mimo@birdymail.me", "Error in Tweet.class", "in " . __FUNCTION__ . ", code: " . $code);			
+		endif;	
+
 		$code = $this->connection->request("POST", 
 			$this->connection->url("1.1/statuses/update"), 
 			$this->twitterMessage);
@@ -141,6 +164,18 @@ class Tweet {
 			mail("mimo@birdymail.me", "Error in Tweet.class", "in " . __FUNCTION__ . ", code: " . $code);
 			return false;
 		endif;
+	}
+
+	private function _connect_db()
+	{
+		require "/home/birdymai/application/config/mysql_login.php";
+		try {
+		  $db = new PDO("mysql:dbname=$mysql_db;host=localhost", $mysql_username, $mysql_password);
+		  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		} catch(PDOException $ex) {
+		  mail("mimo@birdymail.me", "DB Error in Tweet: " . __FUNCTION__, $ex->getMessage());
+		}
+		return $db;
 	}
 
 	private function _validateTwitterUsername()
