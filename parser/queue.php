@@ -33,6 +33,12 @@ try {
 				$tweet->setMessage(unserialize($row["message"]));
 				$tweet->post(TRUE);
 				$tweets_today++;
+				try {
+				  $db->prepare("DELETE FROM twitter_queue WHERE id=:id")
+				  	 ->execute(array(":id" => $row["id"]));
+				} catch(PDOException $ex) {
+				  mail("mimo@birdymail.me", "DB Error in QUEUE", $ex->getMessage());
+				}
 			endif;   
 		endwhile;
 	endif;

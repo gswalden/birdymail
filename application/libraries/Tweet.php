@@ -140,11 +140,11 @@ class Tweet {
 			// 1000 tweet/day limit, so 86.4 seconds between Tweets to never hit limit
 			if (($row[0] * 86.4) > $seconds):
 				try {
-				  $stmt = $db->prepare("INSERT INTO twitter_queue (user, message, type) VALUES
-	                          			(:user, :message, ::type");
-				  $stmt->execute(array( ":user" => $this->twitterUser,
-				  						":message" => serialize($this->twitterMessage),
-				  						":type" => $this->type));
+				  $db->prepare("INSERT INTO twitter_queue (user, message, type) VALUES
+	                          			(:user, :message, :type)")
+				  	 ->execute(array( ":user" => $this->twitterUser,
+				  					":message" => serialize($this->twitterMessage),
+				  					":type" => $this->type));
 				} catch(PDOException $ex) {
 				  mail("mimo@birdymail.me", "DB Error in Tweet: " . __FUNCTION__, $ex->getMessage());
 				}
@@ -155,7 +155,17 @@ class Tweet {
 			$this->connection->url("1.1/statuses/update"), 
 			$this->twitterMessage);
 		if ($code != 200)
-			mail("mimo@birdymail.me", "Error in Tweet.class", "in " . __FUNCTION__ . ", code: " . $code);			
+			mail("mimo@birdymail.me", "Error in Tweet.class", "in " . __FUNCTION__ . ", code: " . $code);
+		else {
+			if ( ! isset($db))
+				$db = $this->_connect_db();
+			try {
+			  $db->prepare("UPDATE config SET num_value=num_value+1 WHERE name=:tweets_today")
+			     ->execute(array(":tweets_today" => "tweets_today"));
+			} catch(PDOException $ex) {
+			  mail("mimo@birdymail.me", "DB Error in Tweet: " . __FUNCTION__, $ex->getMessage());
+			}
+		}
 	}
 
 	public function urlLength()
