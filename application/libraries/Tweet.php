@@ -6,6 +6,7 @@ class Tweet {
 
 	private $twitterUser;
 	private $twitterMessage;
+	private $type;
 	private $connection;
 	private $urlLen;
 
@@ -71,7 +72,7 @@ class Tweet {
 		if (strcmp($user[0], '@') == 0) 
 			$user = substr($user, 1);
 		$this->twitterUser = $user;
-		if (!$this->_validateTwitterUsername()) 
+		if ( ! $this->_validateTwitterUsername()) 
 			$this->twitterUser = FALSE;
 	}
 
@@ -92,6 +93,12 @@ class Tweet {
 			$subject = substr($subject, 0, $charCount - 3) . "…";
 		$this->twitterMessage = array(
 			"status" => ("@" . $this->twitterUser . " " . self::ygm . $subject . " " . self::viewerURL . $id . ".egg"));
+		$this->type = "egg";
+	}
+
+	public function setMessage($msg)
+	{
+		$this->twitterMessage = $msg;
 	}
 
 	public function setStopMessage($user, $id)
@@ -99,6 +106,7 @@ class Tweet {
 		$this->twitterMessage = array(
 			"status" => ("@" . $user . " We cracked your egg(s). Thanks!"),
 			"in_reply_to_status_id" => $id);
+		$this->type = "stop";
 	}
 
 	public function setExtendMessage($user, $id)
@@ -106,6 +114,7 @@ class Tweet {
 		$this->twitterMessage = array(
 			"status" => ("@" . $user . " Your egg\"s life was extended one week. Thanks!"),
 			"in_reply_to_status_id" => $id);
+		$this->type = "extend";
 	}
 
 	public function setReplyMessage($msg, $id)
@@ -115,43 +124,38 @@ class Tweet {
 			"in_reply_to_status_id" => $id);
 	}
 
-	public function post()
+	public function post($skip_queue = FALSE)
 	{
-		$db = $this->_connect_db();
-		try {
-		  $stmt = $db->prepare("SELECT num_value FROM config WHERE name=:tweets_today");
-		  $stmt->execute(array(":tweets_today" => "tweets_today"));
-		  $row = $stmt->fetch();
-		} catch(PDOException $ex) {
-		  mail("mimo@birdymail.me", "DB Error in Tweet: " . __FUNCTION__, $ex->getMessage());
-		}
-		date_default_timezone_set("America/New_York");
-		$seconds = time() - strtotime("today");
-		// 1000 tweet/day limit, so 86.4 seconds between Tweets to never hit limit
-		if (($row[0] * 86.4) > $seconds):
+		if ( ! $skip_queue):
+			$db = $this->_connect_db();
 			try {
-			  $stmt = $db->prepare("INSERT INTO twitter_queue (user, message, type) VALUES
-                          			(:user, :message, ::type");
-			  $stmt->execute(array( ":user" => $this->twitterUser,
-			  						":message" => serialize($this->twitterMessage),
-			  						":type" => ""));
+			  $stmt = $db->prepare("SELECT num_value FROM config WHERE name=:tweets_today");
+			  $stmt->execute(array(":tweets_today" => "tweets_today"));
 			  $row = $stmt->fetch();
 			} catch(PDOException $ex) {
 			  mail("mimo@birdymail.me", "DB Error in Tweet: " . __FUNCTION__, $ex->getMessage());
 			}
-		else:
-			$code = $this->connection->request("POST", 
-				$this->connection->url("1.1/statuses/update"), 
-				$this->twitterMessage);
-			if ($code != 200)
-				mail("mimo@birdymail.me", "Error in Tweet.class", "in " . __FUNCTION__ . ", code: " . $code);			
-		endif;	
-
+			date_default_timezone_set("America/New_York");
+			$seconds = time() - strtotime("today");
+			// 1000 tweet/day limit, so 86.4 seconds between Tweets to never hit limit
+			if (($row[0] * 86.4) > $seconds):
+				try {
+				  $stmt = $db->prepare("INSERT INTO twitter_queue (user, message, type) VALUES
+	                          			(:user, :message, ::type");
+				  $stmt->execute(array( ":user" => $this->twitterUser,
+				  						":message" => serialize($this->twitterMessage),
+				  						":type" => $this->type));
+				} catch(PDOException $ex) {
+				  mail("mimo@birdymail.me", "DB Error in Tweet: " . __FUNCTION__, $ex->getMessage());
+				}
+				return;
+			endif;
+		endif;
 		$code = $this->connection->request("POST", 
 			$this->connection->url("1.1/statuses/update"), 
 			$this->twitterMessage);
 		if ($code != 200)
-			mail("mimo@birdymail.me", "Error in Tweet.class", "in " . __FUNCTION__ . ", code: " . $code);
+			mail("mimo@birdymail.me", "Error in Tweet.class", "in " . __FUNCTION__ . ", code: " . $code);			
 	}
 
 	public function urlLength()
