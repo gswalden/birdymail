@@ -65,6 +65,7 @@ function insertMention(&$db, $mention)
 	    mail('mimo@birdymail.me', 'DB Error in twitter (insertMention)', $ex->getMessage());
 	}
 }
+
 foreach ($mentions as $mention):
 	$text = $mention['text'];
 	if (stripos($text, 'stop') !== false || stripos($text, 'remove') !== false || stripos($text, 'kill') !== false || stripos($text, 'delete') !== false || stripos($text, 'unsubscribe') !== false):
