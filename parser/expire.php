@@ -15,13 +15,13 @@ try {
 	$stmt_get = $db->prepare('SELECT id FROM users WHERE expire < NOW()');
 	$stmt_get->execute();
 	if ($stmt_get->rowCount() > 0):
-		$db->beginTransaction();
 		while ($id = $stmt_get->fetch()):
+			$db->beginTransaction();
 			$db->prepare('INSERT INTO inactive (id, sender, subject, textbody, htmlbody, date) (SELECT id, sender, subject, textbody, htmlbody, date FROM active WHERE id = :id)')
 			   ->execute(array(':id' => $id[0]));
 			$db->prepare('DELETE FROM users WHERE id = :id')->execute(array(':id' => $id[0]));
+			$db->commit();
 		endwhile;
-		$db->commit();
 	endif;
 } catch(PDOException $ex) {
 	$db->rollBack();
