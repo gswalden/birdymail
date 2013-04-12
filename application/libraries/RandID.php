@@ -1,9 +1,11 @@
 <?php if ( ! defined("BASEPATH")) exit("No direct script access allowed");
+
 class RandID
 {
 	private $CI;
 
-	public function __construct() {
+	public function __construct() 
+	{
 		$this->CI =& get_instance(); // sets CI as refernce to framework (in order to use)		
 	}
 
