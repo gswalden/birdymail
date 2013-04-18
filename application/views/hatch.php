@@ -27,9 +27,9 @@
 							echo "Sender: " . $row->sender . "<br />";
 							echo "Subject: " . $row->subject . "<br />";
 							if (strlen($row->htmlbody) > 0)
-								echo "Body html: " . stripslashes($row->htmlbody) . "<br />";
+								echo stripslashes($row->htmlbody) . "<br />";
 							else
-								echo "Body text: " . stripslashes($row->textbody) . "<br />";
+								echo stripslashes($row->textbody) . "<br />";
 							echo "</div>";
 						endforeach;
 					} ?>
