@@ -227,7 +227,7 @@ body {
   font-size: 14px;
   line-height: 20px;
   color: #fff;
-  background: #35476B url('../img/top-background.gif') repeat-x;
+  background: #35476B url('../img/bg-1920.jpg') repeat-x;
 }
 
 a {
@@ -6162,6 +6162,18 @@ a.badge:focus {
 }
 
 .hero-unit {
-  background: url('../img/edit1.jpg') no-repeat;
   color: #000;
+}
+
+#top-box {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  width: 100%;
+  height: 9px;
+  background: url('../img/top-background.gif');
+}
+
+#twitter_rules {
+  font-size: 60%;
 }

@@ -44,6 +44,9 @@ class Create extends CI_Controller {
 			   "created" => $created,
 			   "expire" => $expire
 			);
+		$private = $this->input->post("private", TRUE);
+		if ($private)
+			$data["private"] = 1;
 
 		$this->Creator->insertUser($data);
 		
