@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Bootstrap, from Twitter</title>
+    <title>BirdyMail Bootstrap</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -44,23 +44,41 @@
 			<div class="controls">
 			</div>
 		</div>
-		<form>
-			<input type="text">
-			<label class="checkbox">
-				<input type="checkbox">
-				Send Alerts via Direct Message *
-			</label>
-			<button type="submit" class="btn">
-				Join the Nest!
-			</button>
-			<div id="twitter_rules">* Twitter rules state you must follow <a href="http://twitter.com/BirdyMailMe">@BirdyMailMe</a> to receive DMs</div>
-		</form>
+		<div id="layegg">
+			<form name="twitter" action="">
+				<div class="input-prepend input-append larger-font">
+	  				<span class="add-on">@</span>
+					<input type="text" id="twitter_name" />
+					<button class="btn btn-primary" type="submit">Join the Nest!</button>
+				</div>
+				<div class="alert alert-error fade in" id="does_not_exist">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>Error!</strong> Twitter handle does not exist.
+				</div>
+				<div class="alert alert-error fade in" id="is_blank">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>Error!</strong> You entered nothing.
+				</div>
+				<div class="alert alert-error fade in" id="invalid_chars">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>Error!</strong> Invalid characters entered.
+				</div>
+				<label class="checkbox">
+					<input type="checkbox">
+					Send Alerts via Direct Message *
+				</label>
+				<!-- <button type="submit" class="btn">
+					Join the Nest!
+				</button> -->
+				<div id="twitter_rules">* Twitter rules state you must follow <a href="http://twitter.com/intent/user?screen_name=BirdyMailMe">@BirdyMailMe</a> to receive DMs</div>
+			</form>
+		</div>	
 		<p>
 		</p>
 	</div>
 	<!-- Example row of columns -->
 	<div class="row">
-		<div class="span4">
+		<div class="span4 steps">
 			<h2>
 				Step 1
 			</h2>
@@ -72,25 +90,25 @@
 			<p>
 			</p>
 		</div>
-		<div class="span4">
+		<div class="span4 steps">
 			<h2>
 				Step 2
 			</h2>
 			<p>
-				Use your address anywhere on the web, and when you receive new mail, <a href="http://twitter.com/BirdyMailMe">@BirdyMailMe</a>
+				Use your address anywhere on the web, and when you receive new mail, <a href="http://twitter.com/intent/user?screen_name=BirdyMailMe">@BirdyMailMe</a>
 				will tweet at you with a link to your inbox. To keep e-mails (semi-)private,
 				use our Direct Message feature.
 			</p>
 			<p>
 			</p>
 		</div>
-		<div class="span4">
+		<div class="span4 steps">
 			<h2>
 				Step 3
 			</h2>
 			<p>
 				To extend or delete your @birdymail.me address, tweet 'extend' or 'stop'
-				to <a href="http://twitter.com/BirdyMailMe">@BirdyMailMe</a> from your public Twitter handle. By default, your address
+				to <a href="http://twitter.com/intent/user?screen_name=BirdyMailMe">@BirdyMailMe</a> from your public Twitter handle. By default, your address
 				will expire after 21 days.
 			</p>
 			<p>
@@ -109,7 +127,12 @@
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="../js/bootstrap.min.js"></script>
+    <!-- <script src="js/bootstrap.min.js"></script> -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+	<script src="http://platform.twitter.com/widgets.js"></script>
+	
+	<script src="js/layegg.js"></script>
 
 </body>
 </html>

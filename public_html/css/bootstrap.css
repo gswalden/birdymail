@@ -6163,6 +6163,7 @@ a.badge:focus {
 
 .hero-unit {
   color: #000;
+  /*background-color: rgba(0, 0, 0, 0.2);*/
 }
 
 #top-box {
@@ -6176,4 +6177,16 @@ a.badge:focus {
 
 #twitter_rules {
   font-size: 60%;
+}
+
+.steps {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+a {
+  color: #0000ff;
+}
+
+.alert {
+  display: none;
 }
