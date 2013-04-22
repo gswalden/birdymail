@@ -21,22 +21,26 @@ $(function() {
 		}
 
 		var dataString = 'twitter_name=' + name;
-		 //alert (dataString);return false;
-		 /*$.ajax({
+		$.ajax({
 		    type: "POST",
 		    url: "http://birdymail.me/layegg",
 		    data: dataString,
-		    success: function() {
-		      	$('#contact_form').html("<div id='message'></div>");
-		      	$('#message').html("<h2>Contact Form Submitted!</h2>")
-		      	.append("<p>We will be in touch soon.</p>")
+		    dataType: "json",
+		    success: function(data) {
+		      	var id = data.response;
+		      	$('#layegg').html("<div class='alert alert-success alert-block' id='success-message'></div>");
+		      	$('#success-message').html("Weclome to the nest!<br />Your BirdyMail egg is<br />")
+		      	.append("<div class='input-append'><input type='text' value='" + id + "@birdymail.me' onclick='this.select()' readonly /><button class='btn btn-primary'><i class='icon-share icon-white'></i></button></div>")
 		      	.hide()
 		      	.fadeIn(1500, function() {
-		        	$('#message').append("<img id='checkmark' src='images/check.png' />");
+		        	
 		      	});
+		    },
+		    error: function() {
+		      	
 		    }
-		  });*/
-		  return false;
+		});
+		return false;
 	  
 	});
 });

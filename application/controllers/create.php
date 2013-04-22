@@ -1,6 +1,8 @@
 <?php if ( ! defined("BASEPATH")) exit("No direct script access allowed");
 
-class Create extends CI_Controller {
+require_once APPPATH . "libraries/REST_Controller.php";
+
+class Create extends REST_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -49,8 +51,11 @@ class Create extends CI_Controller {
 			$data["private"] = 1;
 
 		$this->Creator->insertUser($data);
+
+		unset($data["twitter_user"], $data["created"]);
+		$this->_send_response($data);
 		
-		$this->load->view("create", $data);
+		// $this->load->view("create", $data);
 	}
 	private function _createID()
 	{
@@ -73,6 +78,14 @@ class Create extends CI_Controller {
 		$twitter_user = new Tweet();
 		$twitter_user->setUser($user); // pulls data from Twitter API to validate username
 		return $twitter_user->getUser(); // FALSE if invalid
+	}
+
+	private function _send_response($data = NULL)
+	{
+		if ($data)
+			$this->response($data, 200);
+		else
+			$this->response(NULL, 404);
 	}
 }
 

@@ -6190,3 +6190,7 @@ a {
 .alert {
   display: none;
 }
+
+input[readonly] {
+  cursor: default;
+}
