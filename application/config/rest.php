@@ -59,7 +59,7 @@ $config['rest_realm'] = 'REST API';
 |	'' = no login required, 'basic' = unsecure login, 'digest' = more secure login
 |
 */
-$config['rest_auth'] = FALSE;//'digest';
+$config['rest_auth'] = '';//'digest';
 
 /*
 |--------------------------------------------------------------------------
@@ -106,8 +106,8 @@ $config['auth_source'] = 'ldap';
 |	array('admin' => '1234')
 |
 */
-require APPPATH . "config/logins.php";
-$config['rest_valid_logins'] = $rest;
+// require APPPATH . "config/logins.php";
+$config['rest_valid_logins'] = array('admin' => '1234');//$rest;
 
 /*
 |--------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-<?php if ( ! defined("BASEPATH")) exit("No direct script access allowed");
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 require_once APPPATH . "libraries/REST_Controller.php";
 
@@ -19,6 +19,12 @@ class Create extends REST_Controller {
 	 */
 	public function index()
 	{
+		/*require_once 'c:\wamp\www\birdymail\FirePHPCore\FirePHP.class.php';
+		ob_start();
+		$firephp = FirePHP::getInstance(true);
+		$var = array('i'=>10, 'j'=>20);
+		$firephp->log($var, 'Iterators');
+		
 		// Redirect to home if no Twitter name in POST data
 		$user = $this->input->post("twitter_name", TRUE); // Grabs POST data, FALSE if none. Checks for XSS
 		$this->_isFalse($user);
@@ -51,11 +57,10 @@ class Create extends REST_Controller {
 			   "expire" => $expire,
 			   "private" => $dm
 			);
-
 		$this->Creator->insertUser($data);
 
-		unset($data);
-		$data["id"] = $id;
+		unset($data);*/
+		$data["id"] = 1111111;
 		$this->_send_response($data);
 		
 		// $this->load->view("create", $data);

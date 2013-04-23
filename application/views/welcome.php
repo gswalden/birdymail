@@ -8,17 +8,17 @@
     <meta name="author" content="Mimo">
 
     <!-- Le styles -->
-    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="http://localhost/birdymail/public_html/css/bootstrap.css" rel="stylesheet">
     <style>
       body {
         padding-top: 60px;  60px to make the container go all the way to the bottom of the topbar */
       }
     </style>
-    <!-- <link href="../css/bootstrap-responsive.css" rel="stylesheet"> -->
+    <!-- <link href="http://localhost/birdymail/public_html/css/bootstrap-responsive.css" rel="stylesheet"> -->
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="js/html5shiv.js"></script>
+      <script src="http://localhost/birdymail/public_html/js/html5shiv.js"></script>
     <![endif]-->
 
     <!-- Fav and touch icons -->
@@ -38,13 +38,9 @@
 			<h1>
 				BirdyMail, free (like a bird!)
 			</h1>
-			<div class="control-group">
-				<div class="controls">
-				</div>
-			</div>
 			<br />
 			<div id="layegg" class="mywidth">
-				<form name="twitter" action="">
+				<?php echo form_open(); ?>
 					<div class="input-prepend input-append">
 		  				<span class="add-on">@</span>
 						<input type="text" id="twitter_name" placeholder="Enter Twitter handle" />
@@ -84,7 +80,7 @@
 						Join the Nest!
 					</button> -->
 					<div id="twitter_rules">* Twitter rules state you must follow <a href="http://twitter.com/intent/user?screen_name=BirdyMailMe">@BirdyMailMe</a> to receive DMs</div>
-				</form>
+				<?php echo form_close(); ?>
 			</div>
 		</div>
 		<!-- Example row of columns -->
@@ -155,7 +151,7 @@
     <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
 	<script src="http://platform.twitter.com/widgets.js"></script>
 	
-	<script src="js/layegg.js"></script>
+	<script src="http://localhost/birdymail/public_html/js/layegg.js"></script>
 
 </body>
 </html>

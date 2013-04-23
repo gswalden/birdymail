@@ -56,7 +56,7 @@ if (defined('ENVIRONMENT'))
  * as this file.
  *
  */
-	$system_path = '/home/birdymai/system';
+	$system_path = '../system';
 
 /*
  *---------------------------------------------------------------
@@ -72,7 +72,7 @@ if (defined('ENVIRONMENT'))
  * NO TRAILING SLASH!
  *
  */
-	$application_folder = '/home/birdymai/application';
+	$application_folder = '../application';
 
 /*
  * --------------------------------------------------------------------
@@ -167,8 +167,8 @@ if (defined('ENVIRONMENT'))
 	define('EXT', '.php');
 
 	// Path to the system folder
-	define('BASEPATH', str_replace("\\", "/", $system_path));
-
+	//define('BASEPATH', str_replace("\\", "/", $system_path));
+	define('BASEPATH', 'C:\wamp\www\birdymail\system\\');
 	// Path to the front controller (this file)
 	define('FCPATH', str_replace(SELF, '', __FILE__));
 

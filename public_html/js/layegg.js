@@ -24,10 +24,12 @@ $(function() {
 		if ($('#direct_message').is(':checked')) {
 			var dm = 1;
 		}
-		var dataString = 'twitter_name=' + name + '&expire_days=' + expire_days + '&direct_message=' + dm;
+		var csrf = $("input[name=csrf_test_name]").val();
+		var dataString = 'twitter_name=' + name + '&expire_days=' + expire_days + '&direct_message=' + dm + '&csrf_test_name=' + csrf;
+		var big_url = "http://localhost/birdymail/public_html/index.php/create?" + dataString; 
 		$.ajax({
 		    type: "POST",
-		    url: "http://birdymail.me/layegg",
+		    url: big_url,
 		    data: dataString,
 		    dataType: "json",
 		    success: function(data) {
@@ -41,7 +43,12 @@ $(function() {
 		      	});
 		    },
 		    error: function() {
-		      	
+		      	$('#layegg').html("<div class='alert alert-error' id='success-message'></div>");
+		      	$('#success-message').html("Nope!")
+		      	.hide()
+		      	.fadeIn(1500, function() {
+		        	
+		      	});
 		    }
 		});
 		return false;
