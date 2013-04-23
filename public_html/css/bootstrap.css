@@ -6161,11 +6161,6 @@ a.badge:focus {
   background-color: #00FFFF;
 }
 
-.hero-unit {
-  color: #000;
-  /*background-color: rgba(0, 0, 0, 0.2);*/
-}
-
 #top-box {
   position: fixed;
   top: 0px;
@@ -6180,11 +6175,18 @@ a.badge:focus {
 }
 
 .steps {
-  background-color: rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;     
 }
 
-a {
-  color: #0000ff;
+.steps-content {
+  padding: 20px;
+}
+
+.steps, .hero-unit {
+  background-color: rgba(255, 255, 255, 0.5);
+  color: #000;
 }
 
 .alert {
@@ -6192,5 +6194,9 @@ a {
 }
 
 input[readonly] {
-  cursor: default;
+  cursor: text;
+}
+
+.mywidth {
+  width: 370px;
 }

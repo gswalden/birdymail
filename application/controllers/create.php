@@ -27,16 +27,20 @@ class Create extends REST_Controller {
 		$twitter_user = $this->_setUser($user);
 		$this->_isFalse($twitter_user, $user);
 
+		// Get other post vars
+		$exp = $this->input->post("expire_days", TRUE);
+		$dm = $this->input->post("direct_message", TRUE);
+
 		// Load model
 		$this->load->model("Creator", "", TRUE);
 
 		// Create id
 		$id = $this->_createID();
 
-		// Get current time & current time + 21 days
+		// Get current time & current time + $dm days
 		$datetime = new DateTime();
 		$created = $datetime->format("Y-m-d H:i:s");
-		$datetime->add(new DateInterval("P21D"));
+		$datetime->add(new DateInterval("P$expD"));
 		$expire = $datetime->format("Y-m-d H:i:s");
 		unset($datetime);
 
@@ -44,15 +48,14 @@ class Create extends REST_Controller {
 			   "id" => $id,
 			   "twitter_user" => $twitter_user,
 			   "created" => $created,
-			   "expire" => $expire
+			   "expire" => $expire,
+			   "private" => $dm
 			);
-		$private = $this->input->post("private", TRUE);
-		if ($private)
-			$data["private"] = 1;
 
 		$this->Creator->insertUser($data);
 
-		unset($data["twitter_user"], $data["created"]);
+		unset($data);
+		$data["id"] = $id;
 		$this->_send_response($data);
 		
 		// $this->load->view("create", $data);

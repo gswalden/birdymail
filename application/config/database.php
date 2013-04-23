@@ -45,7 +45,7 @@
 | the active record class
 */
 
-require_once 'mysql_login.php'; // gets mysql_username, mysql_password, & mysql_db
+require_once ENVIRONMENT . '/mysql_login.php'; // gets mysql_username, mysql_password, & mysql_db
 
 $active_group = 'default';
 $active_record = TRUE;
