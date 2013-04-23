@@ -17,7 +17,7 @@ class Create extends REST_Controller {
 	 * map to /index.php/create/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function new()
+	public function new_get()
 	{
 		/*require_once 'c:\wamp\www\birdymail\FirePHPCore\FirePHP.class.php';
 		ob_start();
