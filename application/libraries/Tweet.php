@@ -67,10 +67,6 @@ class Tweet {
 
 	public function setUser($user)
 	{
-		$user = trim($user);
-		// Check if user entered the '@' symbol in their twiiter username
-		if (strcmp($user[0], '@') == 0) 
-			$user = substr($user, 1);
 		$this->twitterUser = $user;
 		if ( ! $this->_validateTwitterUsername()) 
 			$this->twitterUser = FALSE;

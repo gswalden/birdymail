@@ -108,7 +108,7 @@
 							Step 2
 						</h2>
 						<p>
-							Use your address anywhere on the web, and when you receive new mail, <a href="http://twitter.com/intent/user?screen_name=BirdyMailMe">@BirdyMailMe</a>
+							Use your new address anywhere on the web, and when you receive new e-mail, <a href="http://twitter.com/intent/user?screen_name=BirdyMailMe">@BirdyMailMe</a>
 							will tweet at you with a link to your inbox. To keep e-mails (semi-) private,
 							use our Direct Message feature.
 						</p>

@@ -17,21 +17,13 @@ class Create extends REST_Controller {
 	 * map to /index.php/create/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function new_get()
+	public function new_post()
 	{
-		/*require_once 'c:\wamp\www\birdymail\FirePHPCore\FirePHP.class.php';
-		ob_start();
-		$firephp = FirePHP::getInstance(true);
-		$var = array('i'=>10, 'j'=>20);
-		$firephp->log($var, 'Iterators');
-		
-		// Redirect to home if no Twitter name in POST data
 		$user = $this->input->post("twitter_name", TRUE); // Grabs POST data, FALSE if none. Checks for XSS
-		$this->_isFalse($user);
-
 		// Redirects if Twitter username invalid
 		$twitter_user = $this->_setUser($user);
-		$this->_isFalse($twitter_user, $user);
+		if ($twitter_user === FALSE)
+			$this->_send_response();
 
 		// Get other post vars
 		$exp = $this->input->post("expire_days", TRUE);
@@ -46,7 +38,8 @@ class Create extends REST_Controller {
 		// Get current time & current time + $dm days
 		$datetime = new DateTime();
 		$created = $datetime->format("Y-m-d H:i:s");
-		$datetime->add(new DateInterval("P$expD"));
+		$days = "P" . $exp . "D";
+		$datetime->add(new DateInterval($days));
 		$expire = $datetime->format("Y-m-d H:i:s");
 		unset($datetime);
 
@@ -57,29 +50,22 @@ class Create extends REST_Controller {
 			   "expire" => $expire,
 			   "private" => $dm
 			);
+		file_put_contents("output.txt", json_encode($data));
 		$this->Creator->insertUser($data);
 
-		unset($data);*/
-		$data["id"] = 1111111;
-		$this->_send_response($data);
+		$res["id"] = $data["id"];
+		$this->_send_response($res);
 		
 		// $this->load->view("create", $data);
 	}
+	
 	private function _createID()
 	{
 		$this->load->library("RandID");
 		$rand = new RandID();
 		return $rand->getRandID();
 	}
-	private function _isFalse($twitter_user, $user=null)
-	{
-		if ($twitter_user === false):
-			if ($user !== null)
-				$user = "/" . $user;
-			$this->load->helper("url");
-			redirect("/rotten" . $user);
-		endif;
-	}
+
 	private function _setUser($user)
 	{
 		$this->load->library("Tweet");

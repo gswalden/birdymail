@@ -26,14 +26,17 @@ $(function() {
 		}
 		var csrf = $("input[name=csrf_test_name]").val();
 		var dataString = 'twitter_name=' + name + '&expire_days=' + expire_days + '&direct_message=' + dm + '&csrf_test_name=' + csrf;
-		var big_url = "http://localhost/birdymail/public_html/index.php/create?" + dataString; 
+		var big_url = "http://localhost/birdymail/public_html/index.php/create/new"; 
 		$.ajax({
 		    type: "POST",
 		    url: big_url,
 		    data: dataString,
 		    dataType: "json",
 		    success: function(data) {
-		      	var id = data[0].id;
+		      	var id;
+		      	$.each(data, function(key, value) {
+				  id = value;
+				});
 		      	$('#layegg').html("<div class='alert alert-success alert-block' id='success-message'></div>");
 		      	$('#success-message').html("Weclome to the nest!<br />Your BirdyMail egg is<br />")
 		      	.append("<div class='input-append'><input type='text' value='" + id + "@birdymail.me' onclick='this.select()' readonly /><button class='btn btn-primary'><i class='icon-share icon-white'></i></button></div>")
