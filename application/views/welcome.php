@@ -9,6 +9,7 @@
 
     <!-- Le styles -->
     <link href="http://localhost/birdymail/public_html/css/bootstrap.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
     <style>
       body {
         padding-top: 60px;  60px to make the container go all the way to the bottom of the topbar */
@@ -39,6 +40,9 @@
 				BirdyMail, free (like a bird!)
 			</h1>
 			<br />
+			<div id="loader">
+				<img src="img/ajax-loader.gif" alt="Loading">
+			</div>
 			<div id="layegg" class="mywidth">
 				<?php echo form_open(); ?>
 					<div class="input-prepend input-append">
@@ -152,6 +156,15 @@
 	<script src="http://platform.twitter.com/widgets.js"></script>
 	
 	<script src="http://localhost/birdymail/public_html/js/layegg.js"></script>
+	<script src="http://www.birdymail.me/js/ZeroClipboard.js"></script>
+    <script>
+    	ZeroClipboard.setDefaults( { moviePath: 'http://www.birdymail.me/js/ZeroClipboard.swf', trustedDomains: 'birdymail.me' } );
+      	var clip = new ZeroClipboard( document.getElementById('d_clip_button') );
+      	clip.glue( document.getElementById('d_clip_button') );
+      	clip.on( 'complete', function(client, args) {
+        	 // document.getElementById("d_clip_button").value="DONE";
+	    } );
+    </script>
 
 </body>
 </html>

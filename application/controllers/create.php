@@ -20,7 +20,7 @@ class Create extends REST_Controller {
 	public function new_post()
 	{
 		$user = $this->input->post("twitter_name", TRUE); // Grabs POST data, FALSE if none. Checks for XSS
-		// Redirects if Twitter username invalid
+
 		$twitter_user = $this->_setUser($user);
 		if ($twitter_user === FALSE)
 			$this->_send_response();
@@ -38,7 +38,7 @@ class Create extends REST_Controller {
 		// Get current time & current time + $dm days
 		$datetime = new DateTime();
 		$created = $datetime->format("Y-m-d H:i:s");
-		$days = "P" . $exp . "D";
+		$days = "P" . $exp . "D"; // format P#D
 		$datetime->add(new DateInterval($days));
 		$expire = $datetime->format("Y-m-d H:i:s");
 		unset($datetime);
@@ -55,8 +55,6 @@ class Create extends REST_Controller {
 
 		$res["id"] = $data["id"];
 		$this->_send_response($res);
-		
-		// $this->load->view("create", $data);
 	}
 	
 	private function _createID()

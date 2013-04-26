@@ -6200,3 +6200,12 @@ input[readonly] {
 .mywidth {
   width: 370px;
 }
+
+#loader {
+  display: none;
+}
+
+#mail_id input {
+  background-color: #fff;
+  color: #000;
+}
