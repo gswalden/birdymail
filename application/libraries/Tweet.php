@@ -189,7 +189,7 @@ class Tweet {
 
 	private function _connect_db()
 	{
-		require "/home/birdymai/application/config/mysql_login.php";
+		require "/home/birdymai/application/config/production/mysql_login.php";
 		try {
 		  $db = new PDO("mysql:dbname=$mysql_db;host=localhost", $mysql_username, $mysql_password);
 		  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

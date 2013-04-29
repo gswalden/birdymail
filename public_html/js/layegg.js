@@ -28,7 +28,7 @@ $(function() {
 		}
 		var csrf = $("input[name=csrf_test_name]").val();
 		var dataString = 'twitter_name=' + name + '&expire_days=' + expire_days + '&direct_message=' + dm + '&csrf_test_name=' + csrf;
-		var big_url = "http://localhost/birdymail/public_html/index.php/create/new"; 
+		var big_url = "http://birdymail.me/create/new"; 
 		
 		$.ajax({
 		    type: "POST",
@@ -43,21 +43,25 @@ $(function() {
 				$("div#loader").hide();
 				$('#layegg').show()
 ;		      	$('#layegg').html("<div class='alert alert-info' id='success-message'></div><div class='input-append' id='mail_id'><input type='text' value='" + id + "@birdymail.me' onclick='this.select()' readonly /><button class='btn btn-primary' id='d_clip_button' data-clipboard-text='"+id+"@birdymail.me'><i class='icon-copy icon-white'></i></button></div>");
-		      	$('#success-message').html("<button type='button' class='close' data-dismiss='alert'>&times;</button>Welcome to the nest!")
+		      	$('#success-message').html("<button type='button' class='close' data-dismiss='alert'>&times;</button><i class='icon-thumbs-up'></i> Welcome to the nest!")
 		      	.hide()
-		      	.fadeIn(1500, function() {
+		      	.fadeIn(500, function() {
 		        	
 		      	});
 		      	$('#mail_id').hide()
-		      	.fadeIn(1500, function() {
+		      	.fadeIn(500, function() {
 		        	
 		      	});
 		      	return true;
 		    },
 		    error: function() {
 		    	$("div#loader").hide();
-		    	$('#layegg').show();
-		      	$("div#does_not_exist").show();
+		    	$('#layegg').fadeIn(500, function() {
+		        	
+		      	});
+		      	$("div#does_not_exist").fadeIn(500, function() {
+		        	
+		      	});
 				$("input#twitter_name").focus();
 				return false;
 		    }

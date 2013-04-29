@@ -8,18 +8,18 @@
     <meta name="author" content="Mimo">
 
     <!-- Le styles -->
-    <link href="http://localhost/birdymail/public_html/css/bootstrap.css" rel="stylesheet">
+    <link href="http://birdymail.me/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://birdymail.me/css/custom.css" rel="stylesheet">
     <link href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
     <style>
       body {
         padding-top: 60px;  60px to make the container go all the way to the bottom of the topbar */
       }
     </style>
-    <!-- <link href="http://localhost/birdymail/public_html/css/bootstrap-responsive.css" rel="stylesheet"> -->
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="http://localhost/birdymail/public_html/js/html5shiv.js"></script>
+      <script src="http://birdymail.me/js/html5shiv.js"></script>
     <![endif]-->
 
     <!-- Fav and touch icons -->

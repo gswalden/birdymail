@@ -5,7 +5,7 @@
     <div class="container">
 		<div class="hero-unit">
 			<h1>
-				BirdyMail, free (like a bird!)
+				<a href="http://birdymail.me">BirdyMail</a>, free (like a bird!)
 			</h1>
 			<br />
 			<div id="loader">
@@ -20,15 +20,15 @@
 					</div>
 					<div class="alert alert-error fade in" id="does_not_exist">
 						<button type="button" class="close" data-dismiss="alert">&times;</button>
-						<strong>Error!</strong> Twitter handle does not exist.
+						<i class="icon-warning-sign"></i> Twitter handle does not exist.
 					</div>
 					<div class="alert alert-error fade in" id="is_blank">
 						<button type="button" class="close" data-dismiss="alert">&times;</button>
-						<strong>Error!</strong> You entered nothing.
+						<i class="icon-warning-sign"></i> You entered nothing.
 					</div>
 					<div class="alert alert-error fade in" id="invalid_chars">
 						<button type="button" class="close" data-dismiss="alert">&times;</button>
-						<strong>Error!</strong> Invalid characters entered.
+						<i class="icon-warning-sign"></i> Invalid character(s) entered.
 					</div>
 					<div>
 						<div class="input-prepend">
@@ -108,7 +108,7 @@
     <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
 	<script src="http://platform.twitter.com/widgets.js"></script>
 	
-	<script src="http://localhost/birdymail/public_html/js/layegg.js"></script>
+	<script src="http://birdymail.me/js/layegg.js"></script>
 	<script src="http://www.birdymail.me/js/ZeroClipboard.js"></script>
     <script>
     	ZeroClipboard.setDefaults( { moviePath: 'http://www.birdymail.me/js/ZeroClipboard.swf', trustedDomains: 'birdymail.me' } );

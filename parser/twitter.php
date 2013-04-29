@@ -30,7 +30,7 @@ function nettuts_error_handler($number, $message, $file, $line, $vars)
 set_error_handler('nettuts_error_handler'); */
 
 // Connect to DB
-require '/home/birdymai/application/config/mysql_login.php';
+require '/home/birdymai/application/config/production/mysql_login.php';
 try {
   $db = new PDO("mysql:dbname=$mysql_db;host=localhost", $mysql_username, $mysql_password);
   $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

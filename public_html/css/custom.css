@@ -1,0 +1,95 @@
+body {
+  color: #fff;
+  background: #35476B url('../img/bg-1920.jpg') no-repeat;
+}
+
+.blue-bg {
+  background-color: #00FFFF;
+}
+
+#top-box {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  width: 100%;
+  height: 9px;
+  background: url('../img/top-background.gif');
+}
+
+#twitter_rules {
+  font-size: 60%;
+}
+
+.steps {
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;  
+  padding: 20px;           
+}
+
+.steps, .hero-unit, .mail {
+  background-color: rgba(255, 255, 255, 0.5);
+  color: #000;
+}
+
+.alert {
+  display: none;
+}
+
+input[readonly] {
+  cursor: text;
+}
+
+.mywidth {
+  width: 370px;
+}
+
+#loader {
+  display: none;
+}
+
+#mail_id input {
+  background-color: #fff;
+  color: #000;
+}
+
+.mail {
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  margin-bottom: 30px;
+  padding: 20px;
+  overflow: auto;
+}
+
+.birdy-link a {
+  color: #fff;
+}
+
+.birdy-link a:hover {
+  color: #005580;
+  -o-transition:.5s;
+  -ms-transition:.5s;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  /* ...and now for the proper property */
+  transition:.5s;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+h1 a {
+  color: #000;
+}
+
+h1 a:hover {
+  color: #005580;
+  -o-transition:.5s;
+  -ms-transition:.5s;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  /* ...and now for the proper property */
+  transition:.5s;
+}
