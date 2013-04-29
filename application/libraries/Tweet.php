@@ -9,6 +9,7 @@ class Tweet {
 	private $type;
 	private $connection;
 	private $urlLen;
+	private $user_id;
 
 	public function __construct()
 	{
@@ -164,6 +165,16 @@ class Tweet {
 		}
 	}
 
+	public function direct_message()
+	{
+		$code = $this->connection->request("POST", 
+			$this->connection->url("1.1/direct_messages/new.json"), 
+			array("text" => $this->_strip_name,
+				  "screen_name" => $this->twitterUser));
+		if ($code != 200)
+			mail("mimo@birdymail.me", "Error in Tweet.class", "in " . __FUNCTION__ . ", code: " . $code);
+	}
+
 	public function urlLength()
 	{	// runs twice a day
 		$code = $this->connection->request("GET", $this->connection->url("1.1/help/configuration.json"));
@@ -188,16 +199,25 @@ class Tweet {
 		return $db;
 	}
 
+	private function _strip_name()
+	{
+		$pos = strpos($this->twitterMessage["status"], " ");
+		return substr($this->twitterMessage["status"], $pos + 1);
+	}
+
 	private function _validateTwitterUsername()
 	{
 		// Get account info
 		$this->connection->request("GET", $this->connection->url("1.1/users/show"), array(
-		 		"screen_name" => "$this->twitterUser"
+		 		"screen_name" => $this->twitterUser
 			));
 
 		// Get the HTTP response code for the API request
 		if ($this->connection->response["code"] == 200)
-			return true;
+		{
+			// $this->user_id = $this->connection->response["id"];	
+			return true;			
+		}
 		else
 			return false;
 	}

@@ -6149,10 +6149,6 @@ a.badge:focus {
   display: block;
 }
 
-.invisible {
-  visibility: hidden;
-}
-
 .affix {
   position: fixed;
 }
@@ -6177,14 +6173,11 @@ a.badge:focus {
 .steps {
   -webkit-border-radius: 6px;
      -moz-border-radius: 6px;
-          border-radius: 6px;     
+          border-radius: 6px;  
+  padding: 20px;           
 }
 
-.steps-content {
-  padding: 20px;
-}
-
-.steps, .hero-unit {
+.steps, .hero-unit, .mail {
   background-color: rgba(255, 255, 255, 0.5);
   color: #000;
 }
@@ -6208,4 +6201,33 @@ input[readonly] {
 #mail_id input {
   background-color: #fff;
   color: #000;
+}
+
+.mail {
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  margin-bottom: 30px;
+}
+
+.mail-content {
+  padding: 20px; 
+}
+
+.birdy-link a {
+  color: #fff;
+}
+
+.birdy-link a:hover {
+  color: #005580;
+  -o-transition:.5s;
+  -ms-transition:.5s;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  /* ...and now for the proper property */
+  transition:.5s;
+}
+
+a:hover {
+  text-decoration: none;
 }

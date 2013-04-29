@@ -50,7 +50,6 @@ class Create extends REST_Controller {
 			   "expire" => $expire,
 			   "private" => $dm
 			);
-		file_put_contents("output.txt", json_encode($data));
 		$this->Creator->insertUser($data);
 
 		$res["id"] = $data["id"];

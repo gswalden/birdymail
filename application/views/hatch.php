@@ -1,40 +1,78 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>BirdyMail Egg Hatcher</title>
-	<meta name="description" content="BirdyMail">
-	<meta name="author" content="mimo">
-	<link rel="stylesheet" href="http://birdymail.me/css/styles.css">
-  	<!--[if lt IE 9]>
-  	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  	<![endif]-->
-</head>
 <body>
-	<div id="expirebox">
-		<?php echo $this->uri->segment(2); ?>@birdymail.me will expire <?php echo $expire ?>.<br />
-		See <a href="http://twitter.com/BirdyMailMe">@BirdyMailMe</a> to extend or delete.
+	
+	<div id="top-box"></div>   
+
+	<div class="row">
+		<div class="container">
+			<div class="span5 birdy-link">
+				<h3><a href="http://birdymail.me"><i class="icon-arrow-left"></i> BirdyMail</a></h3><br/>
+			</div>
+		</div>
 	</div>
-		<div id="box">
-			<div class="outer">
-				<div class="inner">
-					<?php
-					if ($query->num_rows() < 1) 
-						echo '<div class="mail">No e-mails for this egg.</div>';
-					else {
-						foreach ($query->result() as $row): 
-							echo '<div class="mail">';
-							echo "Sender: " . $row->sender . "<br />";
-							echo "Subject: " . $row->subject . "<br />";
-							if (strlen($row->htmlbody) > 0)
-								echo stripslashes($row->htmlbody) . "<br />";
-							else
-								echo stripslashes($row->textbody) . "<br />";
-							echo "</div>";
-						endforeach;
-					} ?>
+	<div class="row">
+		<div class="container">
+			<div class="span5">
+				<div class="mail">
+					<div class="mail-content">
+						<?php echo $this->uri->segment(2); ?>@birdymail.me will expire <?php echo $expire ?>.<br />
+						See <a href="http://twitter.com/BirdyMailMe">@BirdyMailMe</a> to extend or delete.
+					</div>
 				</div>
 			</div>
 		</div>
+	</div>
+<?php
+	$num_rows = $query->num_rows();
+	if ($num_rows == 0):
+?>
+		<div class="row">
+	    	<div class="container">
+				<div class="span12">
+					<div class="mail">
+						<div class="mail-content">
+							No e-mails for this egg.
+						</div>
+					</div>
+				</div>
+			</div>
+	    </div>
+<?php 
+	else: 
+		foreach ($query->result() as $row): ?>
+			<div class="row">
+		    	<div class="container">
+					<div class="span12">
+						<div class="mail">
+							<div class="mail-content">
+<?php 
+								echo "Sender: <strong>" . $row->sender . "</strong><br />";
+								echo "Subject: <strong>" . $row->subject . "</strong><br />";
+								if (strlen($row->htmlbody) > 0)
+									echo stripslashes($row->htmlbody);
+								else
+									echo stripslashes($row->textbody);
+								echo "</div>";
+?>
+							</div>
+						</div>
+					</div>
+				</div>
+		    </div>
+<?php 	
+		endforeach;
+	endif;	 
+?>
+<div class="row">
+	<div class="container">
+		<div class="span12">
+			<hr>
+			<footer>
+				<p>
+					© BirdyMail 2013
+				</p>
+			</footer>
+		</div>
+	</div>
+</div>
 </body>
 </html>

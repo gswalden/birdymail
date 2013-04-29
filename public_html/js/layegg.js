@@ -43,7 +43,7 @@ $(function() {
 				$("div#loader").hide();
 				$('#layegg').show()
 ;		      	$('#layegg').html("<div class='alert alert-info' id='success-message'></div><div class='input-append' id='mail_id'><input type='text' value='" + id + "@birdymail.me' onclick='this.select()' readonly /><button class='btn btn-primary' id='d_clip_button' data-clipboard-text='"+id+"@birdymail.me'><i class='icon-copy icon-white'></i></button></div>");
-		      	$('#success-message').html("Welcome to the nest!")
+		      	$('#success-message').html("<button type='button' class='close' data-dismiss='alert'>&times;</button>Welcome to the nest!")
 		      	.hide()
 		      	.fadeIn(1500, function() {
 		        	

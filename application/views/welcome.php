@@ -1,35 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>BirdyMail!</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Free, temporary e-mail with Twitter integration.">
-    <meta name="author" content="Mimo">
-
-    <!-- Le styles -->
-    <link href="http://localhost/birdymail/public_html/css/bootstrap.css" rel="stylesheet">
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
-    <style>
-      body {
-        padding-top: 60px;  60px to make the container go all the way to the bottom of the topbar */
-      }
-    </style>
-    <!-- <link href="http://localhost/birdymail/public_html/css/bootstrap-responsive.css" rel="stylesheet"> -->
-
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://localhost/birdymail/public_html/js/html5shiv.js"></script>
-    <![endif]-->
-
-    <!-- Fav and touch icons -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/ico/apple-touch-icon-114-precomposed.png">
-      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/ico/apple-touch-icon-72-precomposed.png">
-                    <link rel="apple-touch-icon-precomposed" href="img/ico/apple-touch-icon-57-precomposed.png">
-                                   <link rel="shortcut icon" href="img/ico/favicon.png">
-</head>
-
 <body>
 	
 	<div id="top-box"></div>    
@@ -80,61 +48,46 @@
 							Send Alerts via Direct Message *
 						</label>
 					</div>
-					<!-- <button type="submit" class="btn">
-						Join the Nest!
-					</button> -->
 					<div id="twitter_rules">* Twitter rules state you must follow <a href="http://twitter.com/intent/user?screen_name=BirdyMailMe">@BirdyMailMe</a> to receive DMs</div>
 				<?php echo form_close(); ?>
 			</div>
 		</div>
-		<!-- Example row of columns -->
+		
 		<div class="row">
 			<div class="span4">
 				<div class="steps">
-					<div class="steps-content">
-						<h2>
-							Step 1
-						</h2>
-						<p>
-							Submit your Twitter handle, and after we check your input for errors,
-							we will assign you a free, temporary @birdymail.me address to use as you
-							wish. We will not tweet at you with anything except alerts.
-						</p>
-						<p>
-						</p>
-					</div>
+					<h2>
+						Step 1
+					</h2>
+					<p>
+						Submit your Twitter handle, and after a quick validation,
+						we will instantly assign you a free, temporary @birdymail.me address to use as you
+						wish. We will not tweet at you with anything except alerts.
+					</p>
 				</div>
 			</div>
 			<div class="span4">
 				<div class="steps">
-					<div class="steps-content">
-						<h2>
-							Step 2
-						</h2>
-						<p>
-							Use your new address anywhere on the web, and when you receive new e-mail, <a href="http://twitter.com/intent/user?screen_name=BirdyMailMe">@BirdyMailMe</a>
-							will tweet at you with a link to your inbox. To keep e-mails (semi-) private,
-							use our Direct Message feature.
-						</p>
-						<p>
-						</p>
-					</div>
+					<h2>
+						Step 2
+					</h2>
+					<p>
+						Use your new address anywhere on the web, and when you receive new e-mail, <a href="http://twitter.com/intent/user?screen_name=BirdyMailMe">@BirdyMailMe</a>
+						will tweet at you with a link to your inbox. To keep e-mails (semi-) private,
+						use our Direct Message feature.
+					</p>
 				</div>
 			</div>
 			<div class="span4">
 				<div class="steps">
-					<div class="steps-content">
-						<h2>
-							Step 3
-						</h2>
-						<p>
-							To extend or delete your @birdymail.me address, tweet 'extend' or 'stop'
-							to <a href="http://twitter.com/intent/user?screen_name=BirdyMailMe">@BirdyMailMe</a> from your public Twitter handle. By default, your address
-							will expire after 21 days.
-						</p>
-						<p>
-						</p>
-					</div>
+					<h2>
+						Step 3
+					</h2>
+					<p>
+						To extend or delete your @birdymail.me address, tweet 'extend' or 'stop'
+						to <a href="http://twitter.com/intent/user?screen_name=BirdyMailMe">@BirdyMailMe</a> from your public Twitter handle. By default, your address
+						will expire after 21 days.
+					</p>
 				</div>
 			</div>
 		</div>

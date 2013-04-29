@@ -39,8 +39,8 @@ class Hatch extends CI_Controller {
 	    endif;
 
 	    $data["expire"] = $interval->format($format);
-	
 		// Load template
+		$this->load->view("header", array("title" => "BirdyMail Egg Hatcher!"));
 		$this->load->view("hatch", $data);
 	}
 	private function _isFalse($stmt, $id)

@@ -47,7 +47,7 @@ try {
 
 // Fetch Twitter user associated with e-mail account
 try {
-  $stmt = $db->prepare('SELECT twitter_user FROM users WHERE id=:id');
+  $stmt = $db->prepare('SELECT twitter_user, private FROM users WHERE id=:id');
   $stmt->execute(array(':id' => $id));
   $row = $stmt->fetch();
   $twitter_user = $row['twitter_user'];
@@ -76,5 +76,8 @@ require_once '/home/birdymai/application/libraries/Tweet.php';
 $tweet = new Tweet();
 $tweet->setUser($twitter_user);
 $tweet->setEggMessage($subject, $id);
-$tweet->post();
+if ($row["private"] == 1)
+  $tweet->direct_message();
+else
+  $tweet->post();
 // END Twitter^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
