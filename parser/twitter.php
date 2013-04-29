@@ -52,6 +52,8 @@ require_once '/home/birdymai/application/libraries/Tweet.php';
 
 $tweet = new Tweet();
 $mentions = $tweet->getMentions($id);
+if (empty($mentions))
+	return;
 
 function insertMention(&$db, $mention)
 {
