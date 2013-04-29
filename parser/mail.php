@@ -40,7 +40,7 @@ try {
 try {
   $stmt = $db->prepare('SELECT * FROM users WHERE id=:id');
   $stmt->execute(array(':id' => $id));
-  if ($stmt->rowCount() < 1) die();
+  if ($stmt->rowCount() < 1) die("$id is not a valid account.");
 } catch(PDOException $ex) {
   mail('mimo@birdymail.me', 'DB Error in mail', $ex->getMessage());
 }

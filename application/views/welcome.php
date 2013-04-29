@@ -112,11 +112,7 @@
 	<script src="http://www.birdymail.me/js/ZeroClipboard.js"></script>
     <script>
     	ZeroClipboard.setDefaults( { moviePath: 'http://www.birdymail.me/js/ZeroClipboard.swf', trustedDomains: 'birdymail.me' } );
-      	var clip = new ZeroClipboard( document.getElementById('d_clip_button') );
-      	clip.glue( document.getElementById('d_clip_button') );
-      	clip.on( 'complete', function(client, args) {
-        	 // document.getElementById("d_clip_button").value="DONE";
-	    } );
+      	var clip;
     </script>
 
 </body>

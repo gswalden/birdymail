@@ -109,7 +109,7 @@ class Tweet {
 	public function setExtendMessage($user, $id)
 	{
 		$this->twitterMessage = array(
-			"status" => ("@" . $user . " Your egg\"s life was extended one week. Thanks!"),
+			"status" => ("@" . $user . " Your egg's life was extended one week. Thanks!"),
 			"in_reply_to_status_id" => $id);
 		$this->type = "extend";
 	}
@@ -167,10 +167,11 @@ class Tweet {
 
 	public function direct_message()
 	{
+		$msg = array("text" => $this->_strip_name(),
+			  "screen_name" => $this->twitterUser);
 		$code = $this->connection->request("POST", 
-			$this->connection->url("1.1/direct_messages/new.json"), 
-			array("text" => $this->_strip_name,
-				  "screen_name" => $this->twitterUser));
+			$this->connection->url("1.1/direct_messages/new"), 
+			$msg);
 		if ($code != 200)
 			mail("mimo@birdymail.me", "Error in Tweet.class", "in " . __FUNCTION__ . ", code: " . $code);
 	}

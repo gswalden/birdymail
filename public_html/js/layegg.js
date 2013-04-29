@@ -52,6 +52,11 @@ $(function() {
 		      	.fadeIn(500, function() {
 		        	
 		      	});
+		      	clip = new ZeroClipboard( document.getElementById('d_clip_button') );
+		      	clip.glue( document.getElementById('d_clip_button') );
+		      	clip.on( 'complete', function(client, args) {
+		        	
+			    } );
 		      	return true;
 		    },
 		    error: function() {

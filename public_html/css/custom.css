@@ -1,6 +1,7 @@
 body {
   color: #fff;
   background: #35476B url('../img/bg-1920.jpg') no-repeat;
+  background-attachment: fixed;
 }
 
 .blue-bg {
@@ -92,4 +93,29 @@ h1 a:hover {
   -webkit-transition:.5s;
   /* ...and now for the proper property */
   transition:.5s;
+}
+
+#d_clip_button.zeroclipboard-is-hover { 
+  color: #fff;
+  background-color: #04c;
+  text-decoration: none;
+  background-position: 0 -15px;
+  -webkit-transition: background-position .1s linear;
+  -moz-transition: background-position .1s linear;
+  -o-transition: background-position .1s linear;
+  transition: background-position .1s linear;
+}
+
+#d_clip_button.zeroclipboard-is-active { 
+  color: #fff;
+  background-color: #04c;
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+  -moz-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+}
+
+.copied {
+  display: none;
 }
