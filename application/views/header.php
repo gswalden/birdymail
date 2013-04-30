@@ -4,8 +4,9 @@
     <meta charset="utf-8">
     <title><?php echo $title; ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Free, temporary e-mail with Twitter integration.">
+    <meta name="description" content="Free, receive-only e-mail with Twitter integration.">
     <meta name="author" content="Mimo">
+    <meta name="title" content="BirdyMail">
 
     <!-- Le styles -->
     <link href='http://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
