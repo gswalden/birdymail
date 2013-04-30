@@ -2,6 +2,7 @@ body {
   color: #fff;
   background: #35476B url('../img/bg-1920.jpg') no-repeat;
   background-attachment: fixed;
+  font-family: 'Arial', sans-serif;
 }
 
 .blue-bg {

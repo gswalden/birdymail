@@ -61,7 +61,7 @@
 					</h2>
 					<p>
 						Submit your Twitter handle, and after a quick validation,
-						we will instantly assign you a free, temporary @birdymail.me address to use as you
+						we will instantly assign you a free, receive-only @birdymail.me address to use as you
 						wish. We will not tweet at you with anything except alerts.
 					</p>
 				</div>

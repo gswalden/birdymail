@@ -8,6 +8,7 @@
     <meta name="author" content="Mimo">
 
     <!-- Le styles -->
+    <link href='http://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
     <link href="http://birdymail.me/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://birdymail.me/css/custom.css" rel="stylesheet">
     <link href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
