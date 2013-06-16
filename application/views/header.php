@@ -9,13 +9,13 @@
     <meta name="title" content="BirdyMail">
 
     <!-- Le styles -->
-    <link href='http://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
-    <link href="http://birdymail.me/css/bootstrap.min.css" rel="stylesheet">
-    <link href="http://birdymail.me/css/custom.css" rel="stylesheet">
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
+    <link href='//fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
+    <link href="//birdymail.me/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//birdymail.me/css/custom.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
     <style>
       body {
-        padding-top: 60px;  60px to make the container go all the way to the bottom of the topbar */
+        padding-top: 60px;
       }
     </style>
 
