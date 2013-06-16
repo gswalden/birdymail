@@ -4,8 +4,7 @@ $(document).ready(function() {
 		// validate and process form here
 
 		$('.alert').hide();
-		var name = $("input#twitter_name").val();
-		name = $.trim(name);
+		var name = $.trim($("input#twitter_name").val());
 		while (name.charAt(0) === '@')
 		    name = name.substr(1);
 		if (name == "") {
@@ -41,8 +40,8 @@ $(document).ready(function() {
 				  id = value;
 				});
 				$("div#loader").hide();
-				$('#layegg').show()
-;		      	$('#layegg').html("<div class='alert alert-info' id='success-message'></div><div class='input-append' id='mail_id'><input type='text' value='" + id + "@birdymail.me' onclick='this.select()' readonly /><button class='btn btn-primary' id='d_clip_button' data-clipboard-text='"+id+"@birdymail.me'><i class='icon-copy icon-white'></i></button></div>");
+				$('#layegg').show();		      	
+				$('#layegg').html("<div class='alert alert-info' id='success-message'></div><div class='input-append' id='mail_id'><input type='text' value='" + id + "@birdymail.me' onclick='this.select()' readonly /><button class='btn btn-primary' id='d_clip_button' data-clipboard-text='"+id+"@birdymail.me'><i class='icon-copy icon-white'></i></button></div>");
 		      	$('#success-message').html("<button type='button' class='close' data-dismiss='alert'>&times;</button><i class='icon-thumbs-up'></i> Welcome to the nest!")
 		      	.hide()
 		      	.fadeIn(500, function() {

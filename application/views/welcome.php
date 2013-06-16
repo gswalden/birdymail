@@ -100,15 +100,11 @@
 	</div>
 <!-- /container -->
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <!-- <script src="js/bootstrap.min.js"></script> -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
 	<script src="http://platform.twitter.com/widgets.js"></script>
 	
-	<script src="http://birdymail.me/js/layegg.js"></script>
+	<script src="http://birdymail.me/js/layegg.min.js"></script>
 	<script src="http://www.birdymail.me/js/ZeroClipboard.js"></script>
     <script>
     	ZeroClipboard.setDefaults( { moviePath: 'http://www.birdymail.me/js/ZeroClipboard.swf', trustedDomains: 'birdymail.me' } );
