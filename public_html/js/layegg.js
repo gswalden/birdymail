@@ -1,4 +1,4 @@
-$(function() {
+$(document).ready(function() {
 	$('.alert').hide();
 	$(".btn").click(function() {
 		// validate and process form here
