@@ -13,7 +13,7 @@ $(function() {
 			$("input#twitter_name").focus();
 			return false;
 		}
-		var pattern = /^[A-Za-z0-9_]+$/;
+		var pattern = /^[\w]+$/;
 		if (!pattern.test(name)) {
 		    $("div#invalid_chars").show();
 			$("input#twitter_name").focus();
@@ -24,7 +24,7 @@ $(function() {
 		var expire_days = $("#expire").val();
 		var dm = 0;
 		if ($('#direct_message').is(':checked')) {
-			var dm = 1;
+			dm = 1;
 		}
 		var csrf = $("input[name=csrf_test_name]").val();
 		var dataString = 'twitter_name=' + name + '&expire_days=' + expire_days + '&direct_message=' + dm + '&csrf_test_name=' + csrf;
