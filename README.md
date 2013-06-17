@@ -7,7 +7,7 @@ Similar services did not provide easy, non-intrusive notifications for new e-mai
 ## Libraries
 * [CodeIgniter](http://ellislab.com/codeigniter)
 * [HTML Purifier](http://htmlpurifier.org/)
-* [TMHOAuth](https://github.com/themattharris/tmhOAuth)
+* [tmhOAuth](https://github.com/themattharris/tmhOAuth)
 * [CodeIgniter REST Server](https://github.com/philsturgeon/codeigniter-restserver)
 * [Bootstrap](http://twitter.github.io/bootstrap/) 
 * [ZeroClipboard](https://github.com/zeroclipboard/ZeroClipboard)
