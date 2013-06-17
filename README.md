@@ -8,7 +8,9 @@ Similar services did not provide easy, non-intrusive notifications for new e-mai
 * [CodeIgniter](http://ellislab.com/codeigniter)
 * [HTML Purifier](http://htmlpurifier.org/)
 * [TMHOAuth](https://github.com/themattharris/tmhOAuth)
-* [CodeIgniter REST Server](https://github.com/philsturgeon/codeigniter-restserver) 
+* [CodeIgniter REST Server](https://github.com/philsturgeon/codeigniter-restserver)
+* [Bootstrap](http://twitter.github.io/bootstrap/) 
+* [ZeroClipboard](https://github.com/zeroclipboard/ZeroClipboard)
 
 ## License
 This program is free software: you can redistribute it and/or modify
