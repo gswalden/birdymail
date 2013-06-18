@@ -4,19 +4,6 @@ require_once APPPATH . "libraries/REST_Controller.php";
 
 class Create extends REST_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://birdmail.me/index.php/create
-	 *	- or -  
-	 * 		http://birdmail.me/index.php/create/index
-	 *	- or -
-	 *		http://birdmail.me/create
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/create/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
-	 */
 	public function new_post()
 	{
 		$user = $this->input->post("twitter_name", TRUE); // Grabs POST data, FALSE if none. Checks for XSS
